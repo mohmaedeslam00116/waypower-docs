@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwaypower_docs=self.webpackChunkwaypower_docs||[]).push([["2626"],{1039(e){e.exports=JSON.parse('{"authors":[{"name":"Mohamed Eslam","title":"waypower maintainer","url":"https://github.com/mohmaedeslam00116","imageURL":"https://github.com/mohmaedeslam00116.png","key":"mohmaedeslam","page":null,"count":2}]}')}}]);

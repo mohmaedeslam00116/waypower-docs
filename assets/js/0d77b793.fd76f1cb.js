@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwaypower_docs=self.webpackChunkwaypower_docs||[]).push([["3569"],{3403(e){e.exports=JSON.parse('{"metadata":{"permalink":"/waypower-docs/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":2,"blogDescription":"Building waypower in the open \u2014 evals, releases, and the craft of agent skills","blogTitle":"waypower blog"}}')}}]);

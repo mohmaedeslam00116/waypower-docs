@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwaypower_docs=self.webpackChunkwaypower_docs||[]).push([["3220"],{1912(o){o.exports=JSON.parse('{"blogBasePath":"/waypower-docs/blog","blogTitle":"waypower blog","authorsListPath":"/waypower-docs/blog/authors"}')}}]);

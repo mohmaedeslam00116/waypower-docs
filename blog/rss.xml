@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="rss.xsl"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>waypower Blog</title>
+        <link>https://mohmaedeslam00116.github.io/waypower-docs/blog</link>
+        <description>waypower Blog</description>
+        <lastBuildDate>Wed, 23 Sep 2026 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en</language>
+        <item>
+            <title><![CDATA[This site was built by the skills it documents]]></title>
+            <link>https://mohmaedeslam00116.github.io/waypower-docs/blog/building-these-docs-with-waypower</link>
+            <guid>https://mohmaedeslam00116.github.io/waypower-docs/blog/building-these-docs-with-waypower</guid>
+            <pubDate>Wed, 23 Sep 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[The fastest way to find out whether a workflow pack works is to make it build]]></description>
+            <content:encoded><![CDATA[<p>The fastest way to find out whether a workflow pack works is to make it build
+its own marketing site. So that's what we did: the pages you're reading were
+designed, planned, and shipped through the waypower pipeline itself. This is
+the honest log of what that looked like.</p>
+<!-- -->
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-request-was-one-sentence">The request was one sentence<a href="https://mohmaedeslam00116.github.io/waypower-docs/blog/building-these-docs-with-waypower#the-request-was-one-sentence" class="hash-link" aria-label="Direct link to The request was one sentence" title="Direct link to The request was one sentence" translate="no">​</a></h2>
+<p>"Build a docs site for the pack. New repo, a popular docs template, and use
+our own skills to do it."</p>
+<p>A vague brief — which is exactly the trigger condition for
+<a class="" href="https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/design-interview"><code>design-interview</code></a>. It fired, and instead of
+scaffolding immediately, the agent asked. Two rounds:</p>
+<ol>
+<li class=""><strong>Register, users, purpose, outcome.</strong> Inferred hypotheses from the
+waypower repo (developers evaluating the pack in under five minutes; the
+install command as the success metric), confirmed and sharpened in
+conversation.</li>
+<li class=""><strong>Brand personality.</strong> Four candidate personalities; the pick was
+<em>confident engineering</em> — "Stripe/Vercel docs: the certainty of an expert
+who doesn't need noise." Plus the explicit anti-reference: AI-hype landing
+pages with gradient blobs and empty promises.</li>
+</ol>
+<p>The interview also settled the one architectural decision: <strong>Docusaurus</strong> —
+chosen for its built-in blog (this post needed somewhere to live), versioning
+that will track pack releases, and first-class GitHub Pages deployment.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-spec-became-artifacts-before-it-became-code">The spec became artifacts before it became code<a href="https://mohmaedeslam00116.github.io/waypower-docs/blog/building-these-docs-with-waypower#the-spec-became-artifacts-before-it-became-code" class="hash-link" aria-label="Direct link to The spec became artifacts before it became code" title="Direct link to The spec became artifacts before it became code" translate="no">​</a></h2>
+<p>The interview's output was committed to the repo <em>before</em> any page existed:</p>
+<ul>
+<li class=""><strong><code>PRODUCT.md</code></strong> — who the site serves, what success looks like, the five
+design principles ("show, don't tell", "the install command is sacred",
+"answer-first pages", "calm authority", "practice what you preach").</li>
+<li class=""><strong><code>DESIGN.md</code></strong> — the seeded visual system: a pure-white surface, one deep
+marine-teal primary (seeded at OKLCH hue 200°) doing all the brand work, a
+saturated amber accent rationed to badges and the primary CTA, Inter +
+JetBrains Mono, near-zero motion.</li>
+</ul>
+<p>Every color on this site traces back to that file. The "no shadows, 1px
+borders" rule is why nothing here glows.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="then-the-pipeline-did-what-it-does">Then the pipeline did what it does<a href="https://mohmaedeslam00116.github.io/waypower-docs/blog/building-these-docs-with-waypower#then-the-pipeline-did-what-it-does" class="hash-link" aria-label="Direct link to Then the pipeline did what it does" title="Direct link to Then the pipeline did what it does" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>Planning:</strong> the build was sliced into verifiable tickets — config, theme,
+content, landing, blog, deploy — each shippable on its own.</li>
+<li class=""><strong>Verification (<a class="" href="https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/completion-gate">completion-gate</a>):</strong> "the
+site works" was not accepted until <code>docusaurus build</code> ran green and every
+internal link resolved — evidence, not assertion.</li>
+<li class=""><strong>Ship (<a class="" href="https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/finish-handoff">finish-handoff</a>):</strong> clean git history,
+pushed to a dedicated public repo, deployed to GitHub Pages, and this
+handoff of a blog post so the next session starts warm.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-dogfooding-actually-surfaced">What dogfooding actually surfaced<a href="https://mohmaedeslam00116.github.io/waypower-docs/blog/building-these-docs-with-waypower#what-dogfooding-actually-surfaced" class="hash-link" aria-label="Direct link to What dogfooding actually surfaced" title="Direct link to What dogfooding actually surfaced" translate="no">​</a></h2>
+<p>Two honest observations:</p>
+<ol>
+<li class=""><strong>The interview gate paid for itself immediately.</strong> The template question
+alone (Docusaurus vs VitePress vs Starlight vs MkDocs Material) would have
+been a coin flip without the interview's criteria: blog + versioning +
+Pages deploy made it a one-minute decision.</li>
+<li class=""><strong>The pipeline bends for content work.</strong> Strict RED-GREEN TDD doesn't map
+onto prose. The skills adapted — verification became "build passes, links
+resolve" — which is exactly what a good process should do: hold the
+discipline, flex the mechanics.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-takeaway">The takeaway<a href="https://mohmaedeslam00116.github.io/waypower-docs/blog/building-these-docs-with-waypower#the-takeaway" class="hash-link" aria-label="Direct link to The takeaway" title="Direct link to The takeaway" translate="no">​</a></h2>
+<p>A workflow you wouldn't use on your own project is a workflow you shouldn't
+ship. This site is the proof artifact: the same pipeline documented in the
+<a class="" href="https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/using-waypower">skills reference</a> produced the design system,
+the content, and the deploy — in one session, with the gates doing their job.</p>
+<p>Try it on yours:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">npx skills add mohmaedeslam00116/waypower --all -g --copy</span><br></div></code></pre></div></div>]]></content:encoded>
+            <category>dogfooding</category>
+            <category>meta</category>
+            <category>waypower</category>
+        </item>
+        <item>
+            <title><![CDATA[waypower v0.1.0: 13 skills, one pipeline]]></title>
+            <link>https://mohmaedeslam00116.github.io/waypower-docs/blog/waypower-v0-1-0</link>
+            <guid>https://mohmaedeslam00116.github.io/waypower-docs/blog/waypower-v0-1-0</guid>
+            <pubDate>Wed, 23 Sep 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Your agent already knows how to code. The bottleneck was never the model's]]></description>
+            <content:encoded><![CDATA[<p>Your agent already knows how to code. The bottleneck was never the model's
+syntax — it's that nobody taught it <em>how to work</em>: how to refuse a vague
+brief, how to plan before building, how to prove a claim before making it.</p>
+<p>waypower v0.1.0 is out today: <strong>13 pressure-tested agent skills</strong> forming one
+idea-to-ship pipeline for Claude Code and compatible harnesses.</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">npx skills add mohmaedeslam00116/waypower --all -g --copy</span><br></div></code></pre></div></div>
+<!-- -->
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-in-the-pack">What's in the pack<a href="https://mohmaedeslam00116.github.io/waypower-docs/blog/waypower-v0-1-0#whats-in-the-pack" class="hash-link" aria-label="Direct link to What's in the pack" title="Direct link to What's in the pack" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>1 orchestrator</strong> — <code>using-waypower</code>, always active, routes every task to
+the right process skill and disarms the rationalizations agents use to skip
+process.</li>
+<li class=""><strong>8 process skills</strong> — auto-invoked on their triggers: <code>design-interview</code>,
+<code>tracer-plan</code>, <code>seam-design</code>, <code>seam-driven-tdd</code>, <code>hypothesis-debugging</code>,
+<code>domain-glossary</code>, <code>completion-gate</code>, <code>dual-axis-review</code>.</li>
+<li class=""><strong>4 tool skills</strong> — invoked by name when you want them: <code>waymap</code>,
+<code>finish-handoff</code>, <code>deep-research</code>, <code>authoring-skills</code>.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-pressure-tested-is-on-the-label">Why "pressure-tested" is on the label<a href="https://mohmaedeslam00116.github.io/waypower-docs/blog/waypower-v0-1-0#why-pressure-tested-is-on-the-label" class="hash-link" aria-label="Direct link to Why &quot;pressure-tested&quot; is on the label" title="Direct link to Why &quot;pressure-tested&quot; is on the label" translate="no">​</a></h2>
+<p>Every skill was graded against paired baseline runs — the same pressure
+scenario executed with and without the skill. <strong>12 of 13 discriminate
+cleanly</strong>: agents with the skill demonstrably behave differently than agents
+without it. The thirteenth (<code>domain-glossary</code>) is documented honestly and
+being hardened for the next release.</p>
+<p>The eval scenarios ship inside the pack (<code>evals/evals.json</code> per skill), so you
+can re-run the evidence yourself instead of taking our word for it.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="where-to-go">Where to go<a href="https://mohmaedeslam00116.github.io/waypower-docs/blog/waypower-v0-1-0#where-to-go" class="hash-link" aria-label="Direct link to Where to go" title="Direct link to Where to go" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="https://mohmaedeslam00116.github.io/waypower-docs/docs/getting-started">Getting started</a> — five minutes to your first
+pipeline session</li>
+<li class=""><a class="" href="https://mohmaedeslam00116.github.io/waypower-docs/docs/pipeline">The pipeline</a> — the six stages and where you stay in the
+loop</li>
+<li class=""><a class="" href="https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/using-waypower">Skills reference</a> — all 13 in detail</li>
+<li class=""><a href="https://github.com/mohmaedeslam00116/waypower" target="_blank" rel="noopener noreferrer" class="">GitHub</a> ·
+<a href="https://skills.sh/mohmaedeslam00116/waypower" target="_blank" rel="noopener noreferrer" class="">skills.sh</a></li>
+</ul>]]></content:encoded>
+            <category>release</category>
+            <category>waypower</category>
+        </item>
+    </channel>
+</rss>
