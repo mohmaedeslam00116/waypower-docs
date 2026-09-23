@@ -3,9 +3,11 @@ title: completion-gate
 description: Evidence before assertions — verification commands must run and pass before any success claim.
 ---
 
+import SkillSpec from '@site/src/components/SkillSpec';
+
 # completion-gate
 
-<span className="skill-badge skill-badge--process">process · auto</span>
+<SkillSpec n="08" type="process" invocation="auto-invoked" trigger='"Done" is about to be claimed' output="Evidence — the verification commands actually ran and passed" pairs={['dual-axis-review', 'finish-handoff']} />
 
 **One line:** "done" now means *verified* — the agent cannot claim success it
 hasn't demonstrated.

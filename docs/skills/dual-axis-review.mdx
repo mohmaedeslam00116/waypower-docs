@@ -3,9 +3,11 @@ title: dual-axis-review
 description: Two parallel review agents over the diff — Standards and Spec — before merge, and on received feedback.
 ---
 
+import SkillSpec from '@site/src/components/SkillSpec';
+
 # dual-axis-review
 
-<span className="skill-badge skill-badge--process">process · auto</span>
+<SkillSpec n="09" type="process" invocation="auto-invoked" trigger="A diff is ready — or review feedback arrives" output="Two parallel verdicts: engineering standards and spec fitness" pairs={['completion-gate', 'finish-handoff']} />
 
 **One line:** every diff gets reviewed twice, in parallel — once against
 engineering standards, once against the spec it claims to implement.

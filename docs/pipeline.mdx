@@ -4,20 +4,18 @@ title: The pipeline
 description: The complete idea-to-ship flow — which skill owns each stage, and where you stay in the loop.
 ---
 
+import PipelineMap from '@site/src/components/PipelineMap';
+
 # The pipeline
 
 waypower treats every task as a journey through six stages. Each stage has one
 skill that owns it, and **human-in-the-loop gates** where the agent must stop
 and get your approval before proceeding.
 
-```
-┌─────────┐   ┌──────────┐   ┌─────────┐   ┌──────────┐   ┌────────┐   ┌──────────┐
-│  IDEA   │──►│  DESIGN  │──►│  PLAN   │──►│  BUILD   │──►│ VERIFY │──►│  SHIP    │
-└─────────┘   └──────────┘   └─────────┘   └──────────┘   └────────┘   └──────────┘
-                  ▲ gate:        ▲ gate:       bugs ─►        ▲ gate:      finish-
-              you approve    you approve   hypothesis-    evidence    handoff
-              the spec       the tickets   debugging      + review
-```
+<PipelineMap />
+
+Six stages, six gates. Click a stage to inspect it — who owns it, what it asks,
+and where you stay in control.
 
 ## Stage by stage
 

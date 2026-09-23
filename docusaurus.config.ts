@@ -71,6 +71,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          showLastUpdateTime: true,
           editUrl:
             'https://github.com/mohmaedeslam00116/waypower-docs/tree/main/',
         },
@@ -93,6 +94,22 @@ const config: Config = {
           customCss: './src/css/custom.css',
         },
       } satisfies Preset.Options,
+    ],
+  ],
+
+  themes: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        language: ['en'],
+        docsRouteBasePath: ['/docs'],
+        blogRouteBasePath: ['/blog'],
+        indexBlog: true,
+        highlightSearchTermsOnTargetPage: true,
+        searchResultLimits: 8,
+        explicitSearchResultPath: true,
+      },
     ],
   ],
 

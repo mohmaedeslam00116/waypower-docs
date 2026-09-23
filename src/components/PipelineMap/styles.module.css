@@ -1,0 +1,143 @@
+/* PipelineMap — interactive route diagram for the pipeline page */
+
+.map { margin: 1.5rem 0 2.5rem; }
+
+.route {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.stage { position: relative; }
+
+.stage::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: var(--wp-line-strong);
+}
+
+.stage:last-child::before { right: 0.5rem; }
+
+.stageBtn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 100%;
+  padding: 1.9rem 0.5rem 0 0;
+  background: none;
+  border: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.stageBtn:focus-visible {
+  outline: 2px solid var(--wp-marine);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--wp-paper);
+  border: 2.5px solid var(--wp-marine);
+  transition: background 140ms ease, border-color 140ms ease;
+}
+
+.stageBtn:hover .node { border-color: var(--wp-marine-deep); }
+
+.stageBtn[aria-pressed='true'] .node {
+  background: var(--wp-amber);
+  border-color: var(--wp-amber);
+}
+
+.stageNum {
+  font-family: var(--wp-font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  color: var(--wp-ink-3);
+}
+
+.stageName {
+  font-family: var(--wp-font-mono);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--wp-ink-2);
+  transition: color 140ms ease;
+}
+
+.stageBtn:hover .stageName,
+.stageBtn[aria-pressed='true'] .stageName { color: var(--wp-ink); }
+
+/* Detail panel — the instrument readout */
+
+.panel {
+  border: 1px solid var(--wp-line);
+  border-left: 3px solid var(--wp-amber);
+  border-radius: 8px;
+  background: var(--wp-paper);
+  padding: 1.15rem 1.35rem 1.25rem;
+}
+
+.panelHead {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin-bottom: 0.45rem;
+}
+
+.panelNum {
+  font-family: var(--wp-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  color: var(--wp-ink-3);
+}
+
+.panelSkill {
+  font-family: var(--wp-font-mono);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--wp-marine-deep);
+  text-decoration: none;
+}
+
+.panelSkill:hover { text-decoration: underline; }
+
+[data-theme='dark'] .panelSkill { color: var(--wp-marine); }
+
+.panelGate {
+  font-family: var(--wp-font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  color: var(--wp-ink);
+  margin: 0 0 0.4rem;
+}
+
+.panelDesc {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--wp-ink-2);
+  margin: 0;
+}
+
+@media (max-width: 996px) {
+  .route { grid-template-columns: repeat(3, 1fr); row-gap: 1.75rem; }
+  .stage::before { display: none; }
+}
+
+@media (max-width: 640px) {
+  .route { grid-template-columns: repeat(2, 1fr); }
+}

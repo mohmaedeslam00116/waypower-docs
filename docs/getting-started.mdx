@@ -4,11 +4,14 @@ title: Getting started
 description: Install waypower, verify it, and run your first pipeline session in five minutes.
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Getting started
 
 ## Requirements
 
-- **Claude Code** or a compatible agent harness that supports skills
+- **Claude Code** or a compatible agent harness that supports skills (Cursor, Cline, Codex CLI…)
 - **Node.js 18+** (only for the `npx` installer)
 
 ## Install
@@ -43,11 +46,49 @@ You should see `using-waypower`, `design-interview`, `tracer-plan`,
 
 ## Your first session
 
-Start a new agent session in any repo and describe a feature you want:
+Open a session in your harness, in any repo, and describe a feature you want:
+
+<Tabs groupId="harness">
+  <TabItem value="claude" label="Claude Code" default>
+
+```bash
+claude
+```
+
+Then, in the session:
 
 > "I want to add rate limiting to the API."
 
-This is what should happen, without you asking for any of it:
+  </TabItem>
+  <TabItem value="cursor" label="Cursor">
+
+Open the Agent chat (`Ctrl/Cmd + I`) in your repo, then:
+
+> "I want to add rate limiting to the API."
+
+  </TabItem>
+  <TabItem value="cline" label="Cline">
+
+Open the Cline panel in VS Code, then:
+
+> "I want to add rate limiting to the API."
+
+  </TabItem>
+  <TabItem value="codex" label="Codex CLI">
+
+```bash
+codex
+```
+
+Then, in the session:
+
+> "I want to add rate limiting to the API."
+
+  </TabItem>
+</Tabs>
+
+Whichever harness you use, this is what should happen next — without you
+asking for any of it:
 
 1. **`using-waypower`** (always active) classifies the request as creative work
    and routes it.

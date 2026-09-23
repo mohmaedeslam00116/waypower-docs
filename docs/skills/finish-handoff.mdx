@@ -3,9 +3,11 @@ title: finish-handoff
 description: Integrate verified work, clean the workspace, and compact the session into a handoff the next agent can pick up.
 ---
 
+import SkillSpec from '@site/src/components/SkillSpec';
+
 # finish-handoff
 
-<span className="skill-badge skill-badge--tool">tool · manual</span>
+<SkillSpec n="11" type="tool" invocation="on-call" trigger='"finish-handoff" — work is complete and verified' output="A clean merge and a warm handoff note" pairs={['completion-gate']} />
 
 **One line:** the landing sequence — merge, clean up, and leave a handoff note
 good enough that the next session starts warm, not cold.

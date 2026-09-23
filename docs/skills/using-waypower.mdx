@@ -3,9 +3,11 @@ title: using-waypower
 description: The always-active orchestrator — mandatory skill invocation, priority ladder, and red-flag rules.
 ---
 
+import SkillSpec from '@site/src/components/SkillSpec';
+
 # using-waypower
 
-<span className="skill-badge skill-badge--orchestrator">orchestrator · always active</span>
+<SkillSpec n="01" type="orchestrator" invocation="always active" trigger="Every incoming task — before anything else is allowed to start" output="The right skill, routed — with the red-flag rules enforced" pairs={['design-interview', 'completion-gate']} />
 
 **One line:** the traffic controller — it decides which process skill owns
 whatever you just asked for, and it doesn't let the agent skip.
