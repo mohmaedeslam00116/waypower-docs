@@ -1,0 +1,45 @@
+# finish-handoff
+
+> Integrate verified work, clean the workspace, and compact the session into a handoff the next agent can pick up.
+> Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/finish-handoff
+
+<SkillSpec n="11" type="tool" invocation="on-call" trigger='"finish-handoff" — work is complete and verified' output="A clean merge and a warm handoff note" pairs={['completion-gate']} />
+
+**One line:** the landing sequence — merge, clean up, and leave a handoff note
+good enough that the next session starts warm, not cold.
+
+## When to invoke
+
+Ask for it by name when implementation is complete and verified. Also the
+bridge for detours: hand off *out* to a prototype session, hand what you
+learned *back* to the main thread.
+
+## What it does
+
+1. **Integrates** the work — merge, pull request, or deliberately keep the
+   branch, your call.
+2. **Cleans the workspace** — no orphaned branches, no stray state.
+3. **Compacts the session** into a handoff: what was decided, what was built,
+   what's verified, what's next, and where the bodies are buried.
+
+## What you get
+
+Sessions that compose. Work from three weeks ago resumes in minutes because
+the handoff note carries the context the chat history no longer does.
+
+## From a real session
+
+<Transcript
+  source="roadmap sessions t01–t07, 2026-09 — every session ended this way"
+  lines={[
+    {glyph: 'wp', text: <>Using <b>finish-handoff</b> — the session ends; the work shouldn’t</>},
+    {glyph: 'gate', text: 'clean tree · pushed · merged (direct-to-main for docs, PR #1 for the pack) · branches deleted'},
+    {glyph: 'gate', text: 'ticket Status + Answer written; map.md gains one decision line'},
+    {glyph: 'ok', text: 'next session resumed from the map alone — context summary, zero archaeology'},
+  ]}
+/>
+
+## Pairs with
+
+The final stage of [the pipeline](../pipeline); the natural companion of
+[`waymap`](./waymap) for multi-session efforts.

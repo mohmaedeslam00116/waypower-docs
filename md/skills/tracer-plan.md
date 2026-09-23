@@ -1,0 +1,44 @@
+# tracer-plan
+
+> Turns an approved spec into tracer-bullet tickets and executes them with per-task review.
+> Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/tracer-plan
+
+<SkillSpec n="03" type="process" invocation="auto-invoked" trigger="An approved spec for a multi-step task" output="Tracer-bullet tickets — thin slices that each leave the system working" pairs={['seam-driven-tdd', 'waymap']} />
+
+**One line:** the spec becomes thin end-to-end slices — each one leaves the
+system working — instead of one big-bang implementation.
+
+## When it fires
+
+When you have an approved spec (from [`design-interview`](./design-interview))
+for a multi-step task — before any code is touched.
+
+## What it does
+
+- Slices the spec into **tracer-bullet tickets**: the thinnest path through
+  all layers that delivers observable behavior, first.
+- Sequences the remaining tickets behind it, each independently verifiable.
+- Executes with **per-task review** — drift is caught at ticket boundaries,
+  not at the end.
+
+## What you get
+
+Working software from ticket one. If priorities change mid-build, what's
+already merged still works — you never hold a half-built "big plan".
+
+## From a real session
+
+<Transcript
+  source="building this docs site, 2026-09-23 — same session, after the interview"
+  lines={[
+    {glyph: 'wp', text: <>Using <b>tracer-plan</b> — the approved spec becomes slices</>},
+    {glyph: 'gate', text: 'config → theme → content → landing → blog → deploy'},
+    {glyph: 'gate', text: 'each ticket shippable on its own; verified at its boundary'},
+    {glyph: 'ok', text: 'six tickets, each green before the next began — no big-bang build'},
+  ]}
+/>
+
+## Pairs with
+
+Receives specs from `design-interview`; hands each ticket to
+[`seam-driven-tdd`](./seam-driven-tdd) for test-first implementation.

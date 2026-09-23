@@ -1,0 +1,841 @@
+# What is waypower?
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/intro
+
+**Your agent already knows how to code. waypower teaches it how to work.**
+
+waypower is a pack of **13 agent skills** that install into Claude Code (or any
+compatible agent harness) and give it a complete, disciplined workflow — from
+the first vague idea to a shipped, reviewed branch. One orchestrator skill is
+always active; it routes every task through the right process skill at the
+right moment, with you approving the decisions that matter.
+
+```bash
+npx skills add mohmaedeslam00116/waypower --all -g --copy
+```
+
+## The pipeline
+
+waypower is not a bag of tricks — it's one pipeline:
+
+```
+idea ──► design-interview ──► spec ──► tracer-plan ──► seam-driven-tdd ──► review ──► finish-handoff
+              ▲ you approve            tickets         red → green         dual-axis     merge + handoff
+```
+
+For efforts too big for one session, `waymap` charts the fog into decision
+tickets first. For anything, `completion-gate` makes "done" mean *verified*.
+
+## Three kinds of skills
+
+| Kind | Count | How they run | Examples |
+|------|-------|--------------|----------|
+| **Orchestrator** | 1 | Always active — enforces the pipeline | `using-waypower` |
+| **Process** | 8 | Auto-invoked when their trigger matches | `design-interview`, `seam-driven-tdd` |
+| **Tool** | 4 | You invoke by name, when you want them | `waymap`, `deep-research` |
+
+## Pressure-tested, not vibes-tested
+
+Every skill ships with its own eval scenarios (`evals/evals.json`) and was
+graded against paired baseline runs — the same task, with and without the
+skill. **12 of 13 skills discriminate cleanly** (the thirteenth,
+`domain-glossary`, is being hardened for the next release). The failures were
+fixed before release, not documented after.
+
+## This site is dogfooded
+
+This documentation site was itself built through the waypower pipeline —
+design-interviewed, planned, and shipped with the skills it documents.
+[Read how →](/blog/building-these-docs-with-waypower)
+
+## Next
+
+- [Getting started](./getting-started) — install and first session in 5 minutes
+- [The pipeline](./pipeline) — the full idea-to-ship flow, stage by stage
+- [Skills reference](./skills/using-waypower) — all 13 skills in detail
+
+---
+
+# Getting started
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/getting-started
+
+## Requirements
+
+- **Claude Code** or a compatible agent harness that supports skills. The install path is **CI-verified** on every push for Claude Code (lands in `.claude/skills/`), Cursor, Cline, and Codex CLI (land in `.agents/skills/`) — see the [install-matrix workflow](https://github.com/mohmaedeslam00116/waypower/actions/workflows/ci.yml). Other harnesses supported by the [skills CLI](https://skills.sh) (GitHub Copilot, Windsurf, Gemini CLI…) should work identically but are not in the CI matrix.
+- **Node.js 18+** (only for the `npx` installer)
+
+## Install
+
+The recommended path — all 13 skills, global, copied (not symlinked):
+
+```bash
+npx skills add mohmaedeslam00116/waypower --all -g --copy
+```
+
+Pick a single skill instead by naming it:
+
+```bash
+npx skills add mohmaedeslam00116/waypower --skill seam-driven-tdd -g --copy
+```
+
+The installer runs a security audit on the pack before copying (waypower
+passes: **Safe, 0 alerts, Low Risk**).
+
+## Verify
+
+The skills should now exist in your global skills directory:
+
+```bash
+ls ~/.claude/skills
+```
+
+You should see `using-waypower`, `design-interview`, `tracer-plan`,
+`seam-design`, `seam-driven-tdd`, `hypothesis-debugging`, `domain-glossary`,
+`completion-gate`, `dual-axis-review`, `waymap`, `finish-handoff`,
+`deep-research`, `authoring-skills`.
+
+## Your first session
+
+Open a session in your harness, in any repo, and describe a feature you want:
+
+<Tabs groupId="harness">
+  <TabItem value="claude" label="Claude Code" default>
+
+```bash
+claude
+```
+
+Then, in the session:
+
+> "I want to add rate limiting to the API."
+
+  </TabItem>
+  <TabItem value="cursor" label="Cursor">
+
+Open the Agent chat (`Ctrl/Cmd + I`) in your repo, then:
+
+> "I want to add rate limiting to the API."
+
+  </TabItem>
+  <TabItem value="cline" label="Cline">
+
+Open the Cline panel in VS Code, then:
+
+> "I want to add rate limiting to the API."
+
+  </TabItem>
+  <TabItem value="codex" label="Codex CLI">
+
+```bash
+codex
+```
+
+Then, in the session:
+
+> "I want to add rate limiting to the API."
+
+  </TabItem>
+</Tabs>
+
+Whichever harness you use, this is what should happen next — without you
+asking for any of it:
+
+1. **`using-waypower`** (always active) classifies the request as creative work
+   and routes it.
+2. **`design-interview`** fires and asks you frontier questions instead of
+   guessing — it will not let the agent write code from a vague brief.
+3. It ends at a **written spec you approve**. Only then does implementation
+   begin.
+4. **`tracer-plan`** slices the spec into tickets; **`seam-driven-tdd`**
+   implements them test-first, red before green.
+5. Before "done" is claimed, **`completion-gate`** demands the verification
+   commands actually ran — and **`dual-axis-review`** sends two review agents
+   over the diff.
+6. **`finish-handoff`** merges, cleans up, and writes a handoff note for the
+   next session.
+
+If step 2 didn't happen and the agent jumped straight to code, the skills
+aren't loading — check the install directory and restart the session.
+
+## Tool skills: invoked by name
+
+The four tool skills never auto-fire. Ask for them explicitly:
+
+- *"waymap this"* — chart a huge effort into decision tickets
+- *"deep-research: how does X's API handle Y?"* — primary-source research,
+  findings committed to the repo
+- *"finish-handoff"* — integrate and hand off completed work
+- *"authoring-skills"* — write or harden a skill of your own
+
+## Updating
+
+Re-run the same install command — it overwrites the copies with the latest
+release:
+
+```bash
+npx skills add mohmaedeslam00116/waypower --all -g --copy -y
+```
+
+## Uninstall
+
+Delete the skill directories from `~/.claude/skills/` (and any other agent
+directories the installer detected).
+
+---
+
+# The pipeline
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/pipeline
+
+waypower treats every task as a journey through six stages. Each stage has one
+skill that owns it, and **human-in-the-loop gates** where the agent must stop
+and get your approval before proceeding.
+
+<PipelineMap />
+
+Six stages, six gates. Click a stage to inspect it — who owns it, what it asks,
+and where you stay in control.
+
+## Stage by stage
+
+### 1. Intake — `using-waypower`
+
+Always active. Classifies every incoming request, fires the right process
+skill, and enforces the red-flag rules ("this is too small for a process" is
+usually the moment the process matters most).
+
+### 2. Design — `design-interview`
+
+No code from a vague brief. The skill interviews you in frontier rounds until
+the design is fully formed, then produces a **written spec. You approve it
+before anything is built.** This gate is the cheapest place in the entire
+pipeline to change your mind.
+
+### 3. Plan — `tracer-plan`
+
+The approved spec becomes tracer-bullet tickets: thin, end-to-end slices that
+each leave the system working. Executed with per-task review.
+
+> **Too big for one session?** Invoke [`waymap`](./skills/waymap) first — it
+> charts the fog into decision tickets on your issue tracker and resolves them
+> one at a time.
+
+### 4. Build — `seam-driven-tdd` (+ `seam-design`)
+
+Test-first at user-confirmed seams. The Iron Law: no production code without a
+failing test; RED is verified before GREEN is written. `seam-design` supplies
+the shared deep-module vocabulary whenever an interface is being shaped.
+
+> **Bug mid-flight?** [`hypothesis-debugging`](./skills/hypothesis-debugging)
+> takes over: ranked, falsifiable hypotheses — never guess-and-check.
+
+### 5. Verify — `completion-gate` → `dual-axis-review`
+
+`completion-gate`: no success claim without the verification commands having
+actually run — evidence before assertions, always. Then `dual-axis-review`
+dispatches two parallel review agents over the diff (Standards + Spec) before
+merge.
+
+### 6. Ship — `finish-handoff`
+
+Integrate (merge / PR / keep branch), clean the workspace, and compact the
+session into a handoff note the next agent — or next you — can pick up cold.
+
+## Where you stay in the loop
+
+| Gate | You decide |
+|------|-----------|
+| Spec approval | What gets built |
+| Ticket approval | How it gets sliced |
+| Seam confirmation | Where the interfaces are |
+| Merge | When it ships |
+
+Everything between gates runs autonomously — that's the deal: the agent earns
+your trust at the gates so it can run fast between them.
+
+---
+
+# using-waypower
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/using-waypower
+
+<SkillSpec n="01" type="orchestrator" invocation="always active" trigger="Every incoming task — before anything else is allowed to start" output="The right skill, routed — with the red-flag rules enforced" pairs={['design-interview', 'completion-gate']} />
+
+**One line:** the traffic controller — it decides which process skill owns
+whatever you just asked for, and it doesn't let the agent skip.
+
+## When it fires
+
+Always. It loads at the start of every conversation and stays active for the
+whole session.
+
+## What it does
+
+- Establishes the **mandatory skill-invocation rule**: when a task matches a
+  process skill's trigger, that skill runs — no exceptions for "small" tasks.
+- Maintains the **priority ladder** for conflicting triggers (e.g. a bug found
+  mid-implementation routes to `hypothesis-debugging` before `seam-driven-tdd`
+  resumes).
+- Names the **red flags** — the rationalizations agents use to skip process
+  ("I'll just quickly…", "this is trivial, no need for…") — and overrides them.
+- Exempts the four tool skills from auto-invocation: they run only when you
+  call them by name.
+
+## What you get
+
+A session where the pipeline is the default, not the exception. You never have
+to remember which skill exists — the orchestrator routes; you decide at the
+gates.
+
+## Pairs with
+
+Everything. It's the reason the other eight process skills fire at all.
+
+---
+
+# design-interview
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/design-interview
+
+<SkillSpec n="02" type="process" invocation="auto-invoked" trigger="A vague or high-stakes creative brief" output="A written spec you approve before any code exists" pairs={['tracer-plan', 'dual-axis-review']} />
+
+**One line:** no code from a vague brief — the agent interviews you until the
+design is fully formed, then stops at your approval gate.
+
+## When it fires
+
+Before **any creative work**: creating features, building components, adding
+functionality, modifying behavior. It's the mandatory first step of the
+pipeline.
+
+## What it does
+
+1. **Classifies** the request — spike, bounded, or architectural — which sets
+   how deep the interview goes.
+2. **Interviews in frontier rounds**: each round pushes the boundary of what's
+   still undecided (users, data, failure modes, boundaries) instead of asking
+   laundry-list questions.
+3. **Ends at a written spec** — and waits. Implementation cannot start until
+   you approve it.
+
+## What you get
+
+A spec you actually read and signed off on — which means no "that's not what I
+meant" three hours later. The interview surfaces the questions you didn't know
+needed answering while they're still free to answer.
+
+## Example
+
+> **You:** add caching to the dashboard
+> **Agent (design-interview):** Before I touch code — three rounds of
+> questions. Round 1: what reads hurt today — first paint, or interactions
+> after? Who notices: you, or users? What's the staleness budget — seconds,
+> minutes?
+
+## From a real session
+
+<Transcript
+  source="building this docs site, 2026-09-23 — logged in the dogfooding post"
+  lines={[
+    {glyph: 'you', text: '“Build a docs site for the pack. New repo, a popular docs template, our own skills.”'},
+    {glyph: 'wp', text: <>Using <b>design-interview</b> — vague brief detected; no scaffolding yet</>},
+    {glyph: 'gate', text: 'round 1 — register, users, success metric → “the install command gets copied”'},
+    {glyph: 'gate', text: 'round 2 — four brand personalities → confident engineering; anti-reference: AI-hype gradient blobs'},
+    {glyph: 'ok', text: 'spec approved → PRODUCT.md + DESIGN.md committed before any page existed'},
+  ]}
+/>
+
+## Pairs with
+
+Hands its approved spec to [`tracer-plan`](./tracer-plan). For efforts too
+foggy for a single spec, route through [`waymap`](./waymap) first.
+
+---
+
+# tracer-plan
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/tracer-plan
+
+<SkillSpec n="03" type="process" invocation="auto-invoked" trigger="An approved spec for a multi-step task" output="Tracer-bullet tickets — thin slices that each leave the system working" pairs={['seam-driven-tdd', 'waymap']} />
+
+**One line:** the spec becomes thin end-to-end slices — each one leaves the
+system working — instead of one big-bang implementation.
+
+## When it fires
+
+When you have an approved spec (from [`design-interview`](./design-interview))
+for a multi-step task — before any code is touched.
+
+## What it does
+
+- Slices the spec into **tracer-bullet tickets**: the thinnest path through
+  all layers that delivers observable behavior, first.
+- Sequences the remaining tickets behind it, each independently verifiable.
+- Executes with **per-task review** — drift is caught at ticket boundaries,
+  not at the end.
+
+## What you get
+
+Working software from ticket one. If priorities change mid-build, what's
+already merged still works — you never hold a half-built "big plan".
+
+## From a real session
+
+<Transcript
+  source="building this docs site, 2026-09-23 — same session, after the interview"
+  lines={[
+    {glyph: 'wp', text: <>Using <b>tracer-plan</b> — the approved spec becomes slices</>},
+    {glyph: 'gate', text: 'config → theme → content → landing → blog → deploy'},
+    {glyph: 'gate', text: 'each ticket shippable on its own; verified at its boundary'},
+    {glyph: 'ok', text: 'six tickets, each green before the next began — no big-bang build'},
+  ]}
+/>
+
+## Pairs with
+
+Receives specs from `design-interview`; hands each ticket to
+[`seam-driven-tdd`](./seam-driven-tdd) for test-first implementation.
+
+---
+
+# seam-design
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/seam-design
+
+<SkillSpec n="04" type="process" invocation="auto-invoked" trigger="An interface or module seam is being shaped" output="Deep-module contracts before implementation" pairs={['seam-driven-tdd']} />
+
+**One line:** the design vocabulary every other skill speaks — deep modules,
+well-placed seams, interfaces worth testing at.
+
+## When it fires
+
+When designing or improving a module's interface, finding deepening
+opportunities, deciding where a seam goes, making code more testable or
+AI-navigable — or when another skill needs the vocabulary.
+
+## What it does
+
+- Applies **deep-module thinking**: small interface, large implementation.
+  Flags shallow modules that leak their insides.
+- Locates **seams** — the boundaries where behavior can be observed and
+  verified — so tests have somewhere honest to live.
+- Keeps interfaces **AI-navigable**: an agent can find the right seam without
+  reading the whole codebase, which is what makes the rest of the pipeline
+  fast.
+
+## What you get
+
+Modules an agent (and a human) can safely change. The seams you confirm here
+are exactly where [`seam-driven-tdd`](./seam-driven-tdd) writes its tests.
+
+## Pairs with
+
+The design half of `seam-driven-tdd`; used throughout
+[`tracer-plan`](./tracer-plan) execution whenever a new interface appears.
+
+---
+
+# seam-driven-tdd
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/seam-driven-tdd
+
+<SkillSpec n="05" type="process" invocation="auto-invoked" trigger="Implementation begins at confirmed seams" output="Verified RED before every GREEN — enforced, not suggested" pairs={['seam-design', 'completion-gate']} />
+
+**One line:** test-first development where tests live at seams you confirmed —
+with the discipline enforced, not suggested.
+
+## When it fires
+
+When implementing **any** feature, bugfix, or behavior change — before writing
+implementation code.
+
+## What it does
+
+- **The Iron Law:** no production code without a failing test that demands it.
+- **Mandatory verify-RED:** the agent must watch the new test fail *for the
+  right reason* before writing the implementation. A test that never failed
+  proves nothing.
+- **Tracer-bullet slicing:** behavior lands in thin, end-to-end increments
+  (inherited from [`tracer-plan`](./tracer-plan)), each green before the next
+  begins.
+- Tests sit at **user-confirmed seams** (see [`seam-design`](./seam-design)) —
+  so they survive refactors instead of punishing them.
+
+## What you get
+
+A test suite that documents behavior at the boundaries that matter, and an
+agent that cannot quietly skip the red phase — the most common way "TDD"
+degenerates into writing tests after the fact.
+
+## From a real session
+
+<Transcript
+  source="the 13/13 eval hardening, 2026-09-23 — run log in the pack repo (domain-glossary/evals/runs)"
+  lines={[
+    {glyph: 'you', text: '“domain-glossary is the one skill that doesn’t discriminate — fix it”'},
+    {glyph: 'wp', text: <>Using <b>seam-driven-tdd</b> — RED first; no changes until the failure is observed</>},
+    {glyph: 'gate', text: 'RED — fresh baseline parks operational rules + a diagram in CONTEXT.md (eval 2, verbatim in the log)'},
+    {glyph: 'gate', text: 'RED — baseline writes a full ADR for a sort-order preference, instantly (temptation eval)'},
+    {glyph: 'ok', text: 'GREEN — new temptation eval + two SKILL.md counters; 13/13 now discriminate'},
+  ]}
+/>
+
+## Pairs with
+
+Design vocabulary from `seam-design`; bugs found mid-cycle escalate to
+[`hypothesis-debugging`](./hypothesis-debugging); completion claims pass
+through [`completion-gate`](./completion-gate).
+
+---
+
+# hypothesis-debugging
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/hypothesis-debugging
+
+<SkillSpec n="06" type="process" invocation="auto-invoked" trigger="A bug or failure with an unknown cause" output="Ranked falsifiable hypotheses, each tested by the cheapest experiment" pairs={['seam-driven-tdd', 'completion-gate']} />
+
+**One line:** debugging as the scientific method — ranked hypotheses, each
+falsifiable, each tested by the cheapest experiment that could kill it.
+
+## When it fires
+
+On **any bug, test failure, or unexpected behavior** — before any fix is
+proposed. It has pipeline priority: a bug found mid-implementation pauses
+`seam-driven-tdd` until the root cause is known.
+
+## What it does
+
+1. **Ranks hypotheses** by likelihood × cost of testing.
+2. **Falsifies, doesn't confirm** — each experiment is designed to *kill* a
+   hypothesis, not to make the favorite look right.
+3. **Tight feedback loop** — smallest possible reproduction, one variable at
+   a time.
+4. Only then: a fix, verified against the reproduction — which usually becomes
+   the regression test.
+
+## What you get
+
+Fixes that stay fixed. No "try this and see" loops, no whack-a-mole — and a
+written trail of what was ruled out, so the next occurrence starts from
+evidence, not folklore.
+
+## From a real session
+
+<Transcript
+  source="the CI install-matrix failure, 2026-09-23 — waypower PR #1, run logs on GitHub"
+  lines={[
+    {glyph: 'you', text: '“install-matrix passes locally, fails in CI”'},
+    {glyph: 'wp', text: <>Using <b>hypothesis-debugging</b> — ranked hypotheses, cheapest kill first</>},
+    {glyph: 'gate', text: 'H1 “--json silently dropped?” → CI debug-dump step confirms: the runner’s CLI emits no JSON report'},
+    {glyph: 'gate', text: 'H2 “stale CLI on the runner?” → claude-code landed in .agents/skills — pre-1.7 behavior, hypothesis confirmed'},
+    {glyph: 'ok', text: 'pinned skills@1.7.0 — 4/4 matrix cells green on the re-run'},
+  ]}
+/>
+
+## Pairs with
+
+Its regression tests land through [`seam-driven-tdd`](./seam-driven-tdd);
+verified fixes pass [`completion-gate`](./completion-gate) before being called
+done.
+
+---
+
+# domain-glossary
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/domain-glossary
+
+<SkillSpec n="07" type="process" invocation="auto-invoked" trigger="A concept gets named, or an ADR is written" output="One word per concept — CONTEXT.md and ADRs stay coherent" pairs={['design-interview']} />
+
+**One line:** the project's vocabulary police — one name per concept, kept in
+a living `CONTEXT.md`, so agents and humans stop talking past each other.
+
+## When it fires
+
+When discussing codebase terminology, writing or editing a `CONTEXT.md`, or
+recording or editing an ADR (architecture decision record).
+
+## What it does
+
+- Builds and sharpens the **domain model**: entities, relationships, and the
+  exact word for each concept.
+- Owns the **CONTEXT.md glossary** — the single source of truth an agent reads
+  to learn what things are called in *this* repo.
+- Records decisions as **ADRs** so "why" survives the people who made it.
+
+## What you get
+
+Agents that use your project's real vocabulary from message one — and never
+invent a second name for a concept that already has one.
+
+:::note Known limitation
+`domain-glossary` is the one skill whose evals didn't discriminate cleanly at
+v0.1.0 — it's being hardened for the next release. It works; we just haven't
+proven how much yet.
+:::
+
+## Pairs with
+
+Feeds vocabulary into every other skill; its glossary is most valuable to
+[`design-interview`](./design-interview) and [`seam-design`](./seam-design).
+
+---
+
+# completion-gate
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/completion-gate
+
+<SkillSpec n="08" type="process" invocation="auto-invoked" trigger='"Done" is about to be claimed' output="Evidence — the verification commands actually ran and passed" pairs={['dual-axis-review', 'finish-handoff']} />
+
+**One line:** "done" now means *verified* — the agent cannot claim success it
+hasn't demonstrated.
+
+## When it fires
+
+Whenever the agent is about to claim work is complete, fixed, or passing —
+before commits, PRs, or closing tickets.
+
+## What it does
+
+- Requires the **verification commands to actually run** (tests, build, lint,
+  typecheck — whatever proves the claim) and their output to be inspected.
+- Blocks success claims made from memory, assumption, or "it passed a minute
+  ago".
+- Makes failures visible instead of summarizing them away.
+
+## What you get
+
+You can trust the word "done". When a waypower-driven agent says the tests
+pass, they passed — in this session, just now, with output to show for it.
+
+## From a real session
+
+<Transcript
+  source="closing ticket t06 (CI evals + install matrix), 2026-09-23 — evidence links in the ticket"
+  lines={[
+    {glyph: 'wp', text: <>Using <b>completion-gate</b> — “CI works” is a claim, not evidence</>},
+    {glyph: 'gate', text: 'claim → proof: PR #1, run 35918256029 — eval-gate + 4 matrix cells, all pass'},
+    {glyph: 'gate', text: 'honesty check — docs claims re-read against the matrix results; wording corrected'},
+    {glyph: 'ok', text: 'PASS — merged; ticket closed with run links, not assertions'},
+  ]}
+/>
+
+## Pairs with
+
+The last gate before [`dual-axis-review`](./dual-axis-review); every skill
+that produces work answers to it.
+
+---
+
+# dual-axis-review
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/dual-axis-review
+
+<SkillSpec n="09" type="process" invocation="auto-invoked" trigger="A diff is ready — or review feedback arrives" output="Two parallel verdicts: engineering standards and spec fitness" pairs={['completion-gate', 'finish-handoff']} />
+
+**One line:** every diff gets reviewed twice, in parallel — once against
+engineering standards, once against the spec it claims to implement.
+
+## When it fires
+
+When a task, ticket, or feature is complete and before merging — and again
+when review feedback arrives, to verify comments before implementing them.
+
+## What it does
+
+Dispatches **two review sub-agents over the diff**:
+
+- **Standards axis** — code quality, conventions, security, error handling,
+  the things that are always true.
+- **Spec axis** — does this diff actually do what the approved spec said?
+  Nothing more, nothing less — the axis that catches "works, but wrong thing".
+
+Feedback arriving from humans gets the same treatment: verified before it's
+implemented, so a mistaken review comment doesn't get obediently merged.
+
+## What you get
+
+Pre-merge review that catches the two failure modes that matter — bad code,
+and good code for the wrong requirement — without you reading every line.
+
+## From a real session
+
+<Transcript
+  source="the dual-axis review of the t08+t09 docs diff itself, 2026-09-23 — two review sub-agents over that change"
+  lines={[
+    {glyph: 'you', text: '“Before you push: review the diff properly.”'},
+    {glyph: 'wp', text: <>Using <b>dual-axis-review</b> — two sub-agents: standards axis + spec axis</>},
+    {glyph: 'gate', text: 'standards — P1: the llms page-order list drifts silently from sidebars.ts → build-time guard added'},
+    {glyph: 'gate', text: 'spec — P1: this page carried no transcript; the honest excerpt is the review you’re reading'},
+    {glyph: 'ok', text: 'FIX-THEN-SHIP on both axes — P1s landed, P2s triaged, then the diff shipped'},
+  ]}
+/>
+
+## Pairs with
+
+Runs after [`completion-gate`](./completion-gate), before
+[`finish-handoff`](./finish-handoff) merges.
+
+---
+
+# waymap
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/waymap
+
+<SkillSpec n="10" type="tool" invocation="on-call" trigger='"waymap this" — an effort too big to see whole' output="A decision map of tickets, resolved one at a time" pairs={['tracer-plan']} />
+
+**One line:** for work too big for one session — a living map of decision
+tickets on your issue tracker, resolved one at a time until the way is clear.
+
+## When to invoke
+
+Ask for it by name: *"waymap this."* Use it when the effort is large and the
+path is foggy — a migration, a new product area, anything where "just start"
+would mean discovering the plan by accident. Never auto-fires.
+
+## What it does
+
+- **Chart mode:** names the destination first (via
+  [`design-interview`](./design-interview)), then maps the frontier
+  breadth-first into a single map issue (`waymap:map`) plus child tickets.
+- **Ticket types:** `research` (find out), `prototype` (try it cheap),
+  `grilling` (decide with a human), `task` (build it) — each carrying a
+  `waymap:<type>` label.
+- **Blocking edges** wire the dependency graph, so the map always shows what's
+  resolvable *now*.
+- **Resolve mode:** clears one ticket at a time; the map is an index, not a
+  knowledge store — findings live in the tickets.
+
+## What you get
+
+The fog made visible and finite. At any moment you can answer: where are we,
+what's decided, what's blocking what, what's next — across sessions, agents,
+and weeks.
+
+## Pairs with
+
+Feeding resolved tickets into [`tracer-plan`](./tracer-plan) and
+[`seam-driven-tdd`](./seam-driven-tdd); session continuity via
+[`finish-handoff`](./finish-handoff).
+
+---
+
+# finish-handoff
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/finish-handoff
+
+<SkillSpec n="11" type="tool" invocation="on-call" trigger='"finish-handoff" — work is complete and verified' output="A clean merge and a warm handoff note" pairs={['completion-gate']} />
+
+**One line:** the landing sequence — merge, clean up, and leave a handoff note
+good enough that the next session starts warm, not cold.
+
+## When to invoke
+
+Ask for it by name when implementation is complete and verified. Also the
+bridge for detours: hand off *out* to a prototype session, hand what you
+learned *back* to the main thread.
+
+## What it does
+
+1. **Integrates** the work — merge, pull request, or deliberately keep the
+   branch, your call.
+2. **Cleans the workspace** — no orphaned branches, no stray state.
+3. **Compacts the session** into a handoff: what was decided, what was built,
+   what's verified, what's next, and where the bodies are buried.
+
+## What you get
+
+Sessions that compose. Work from three weeks ago resumes in minutes because
+the handoff note carries the context the chat history no longer does.
+
+## From a real session
+
+<Transcript
+  source="roadmap sessions t01–t07, 2026-09 — every session ended this way"
+  lines={[
+    {glyph: 'wp', text: <>Using <b>finish-handoff</b> — the session ends; the work shouldn’t</>},
+    {glyph: 'gate', text: 'clean tree · pushed · merged (direct-to-main for docs, PR #1 for the pack) · branches deleted'},
+    {glyph: 'gate', text: 'ticket Status + Answer written; map.md gains one decision line'},
+    {glyph: 'ok', text: 'next session resumed from the map alone — context summary, zero archaeology'},
+  ]}
+/>
+
+## Pairs with
+
+The final stage of [the pipeline](../pipeline); the natural companion of
+[`waymap`](./waymap) for multi-session efforts.
+
+---
+
+# deep-research
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/deep-research
+
+<SkillSpec n="12" type="tool" invocation="on-call" trigger='"deep-research: <question>" — facts that need primary sources' output="A cited answer, committed to your repo as Markdown" pairs={['domain-glossary']} />
+
+**One line:** give a question to a background agent that reads the primary
+sources — and commits what it found to your repo.
+
+## When to invoke
+
+Ask for it by name: *"deep-research: how does X handle Y?"* Use it for API
+facts, library internals, protocol behavior — anywhere the answer should come
+from documentation and source, not from model memory.
+
+## What it does
+
+- Investigates against **high-trust primary sources**: official docs, source
+  code, RFCs — not blog summaries of blog summaries.
+- Runs as a **background agent**, so your main session keeps moving.
+- Captures findings as a **Markdown file in the repo** — the research becomes
+  project knowledge, citable and reviewable, not chat ephemera.
+
+## What you get
+
+Answers you'd stake a design on, with the sources attached — and a research
+trail the next person (or agent) can extend instead of redoing.
+
+## Pairs with
+
+Feeds [`design-interview`](./design-interview) when the fog is factual;
+research tickets in [`waymap`](./waymap) are exactly its job.
+
+---
+
+# authoring-skills
+
+Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/authoring-skills
+
+<SkillSpec n="13" type="tool" invocation="on-call" trigger="Creating or hardening a skill of your own" output="A pressure-tested skill with its own evals" pairs={['using-waypower']} />
+
+**One line:** the meta-skill — how waypower's own skills were built, packaged
+so you can build yours the same way.
+
+## When to invoke
+
+Ask for it by name when creating a new skill, editing an existing one, or
+verifying a skill works before deploying it.
+
+## What it does
+
+Applies **test-driven development to process documentation**:
+
+- **RED** — write pressure scenarios and run them *without* the skill. Watch
+  the agent fail (or succeed — which tells you the skill isn't needed).
+- **GREEN** — write the minimal skill that changes the behavior.
+- **REFACTOR** — close the loopholes: the rationalizations agents used to skip
+  the skill, named and disarmed in the text itself.
+
+Plus the mechanics: frontmatter that triggers reliably, invocation rules, file
+structure, and the paired-eval grading waypower itself was gated on.
+
+## What you get
+
+Skills that provably change behavior — not prompt-flavored wishful thinking.
+Every waypower skill on this site passed exactly this process (12 of 13
+discriminate cleanly; the thirteenth is honest about it).
+
+## Pairs with
+
+The release discipline behind all 13 skills; its output plugs straight into
+[`using-waypower`](./using-waypower)'s routing.

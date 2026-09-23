@@ -1,0 +1,38 @@
+# authoring-skills
+
+> TDD for process documentation — write and pressure-test skills of your own.
+> Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/authoring-skills
+
+<SkillSpec n="13" type="tool" invocation="on-call" trigger="Creating or hardening a skill of your own" output="A pressure-tested skill with its own evals" pairs={['using-waypower']} />
+
+**One line:** the meta-skill — how waypower's own skills were built, packaged
+so you can build yours the same way.
+
+## When to invoke
+
+Ask for it by name when creating a new skill, editing an existing one, or
+verifying a skill works before deploying it.
+
+## What it does
+
+Applies **test-driven development to process documentation**:
+
+- **RED** — write pressure scenarios and run them *without* the skill. Watch
+  the agent fail (or succeed — which tells you the skill isn't needed).
+- **GREEN** — write the minimal skill that changes the behavior.
+- **REFACTOR** — close the loopholes: the rationalizations agents used to skip
+  the skill, named and disarmed in the text itself.
+
+Plus the mechanics: frontmatter that triggers reliably, invocation rules, file
+structure, and the paired-eval grading waypower itself was gated on.
+
+## What you get
+
+Skills that provably change behavior — not prompt-flavored wishful thinking.
+Every waypower skill on this site passed exactly this process (12 of 13
+discriminate cleanly; the thirteenth is honest about it).
+
+## Pairs with
+
+The release discipline behind all 13 skills; its output plugs straight into
+[`using-waypower`](./using-waypower)'s routing.

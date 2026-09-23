@@ -1,0 +1,37 @@
+# waypower
+
+> 13 pressure-tested agent skills that teach your coding agent how to work — a complete idea-to-ship pipeline: interviewed design, tracer-bullet plans, enforced TDD, evidence-gated completion.
+
+Full text of every docs page: https://mohmaedeslam00116.github.io/waypower-docs/llms-full.txt — raw Markdown per page under https://mohmaedeslam00116.github.io/waypower-docs/md/.
+
+## Docs
+
+- [What is waypower?](https://mohmaedeslam00116.github.io/waypower-docs/md/intro.md): 13 pressure-tested agent skills that teach your coding agent how to work — a complete idea-to-ship pipeline.
+- [Getting started](https://mohmaedeslam00116.github.io/waypower-docs/md/getting-started.md): Install waypower, verify it, and run your first pipeline session in five minutes.
+- [The pipeline](https://mohmaedeslam00116.github.io/waypower-docs/md/pipeline.md): The complete idea-to-ship flow — which skill owns each stage, and where you stay in the loop.
+
+## Skills reference
+
+- [using-waypower](https://mohmaedeslam00116.github.io/waypower-docs/md/skills/using-waypower.md): The always-active orchestrator — mandatory skill invocation, priority ladder, and red-flag rules.
+- [design-interview](https://mohmaedeslam00116.github.io/waypower-docs/md/skills/design-interview.md): Frontier-round interviewing that ends at a written, user-approved spec — before any code exists.
+- [tracer-plan](https://mohmaedeslam00116.github.io/waypower-docs/md/skills/tracer-plan.md): Turns an approved spec into tracer-bullet tickets and executes them with per-task review.
+- [seam-design](https://mohmaedeslam00116.github.io/waypower-docs/md/skills/seam-design.md): Shared vocabulary for deep modules — where interfaces go, how to make code testable and AI-navigable.
+- [seam-driven-tdd](https://mohmaedeslam00116.github.io/waypower-docs/md/skills/seam-driven-tdd.md): Test-first development at user-confirmed seams — Iron Law, mandatory verify-RED, tracer-bullet slicing.
+- [hypothesis-debugging](https://mohmaedeslam00116.github.io/waypower-docs/md/skills/hypothesis-debugging.md): Root cause through ranked, falsifiable hypotheses and a tight feedback loop — never guess-and-check.
+- [domain-glossary](https://mohmaedeslam00116.github.io/waypower-docs/md/skills/domain-glossary.md): Owns the project's domain model and CONTEXT.md glossary — one word per concept, everywhere.
+- [completion-gate](https://mohmaedeslam00116.github.io/waypower-docs/md/skills/completion-gate.md): Evidence before assertions — verification commands must run and pass before any success claim.
+- [dual-axis-review](https://mohmaedeslam00116.github.io/waypower-docs/md/skills/dual-axis-review.md): Two parallel review agents over the diff — Standards and Spec — before merge, and on received feedback.
+- [waymap](https://mohmaedeslam00116.github.io/waypower-docs/md/skills/waymap.md): Chart huge, foggy efforts into a map of decision tickets on the issue tracker — then resolve them one at a time.
+- [finish-handoff](https://mohmaedeslam00116.github.io/waypower-docs/md/skills/finish-handoff.md): Integrate verified work, clean the workspace, and compact the session into a handoff the next agent can pick up.
+- [deep-research](https://mohmaedeslam00116.github.io/waypower-docs/md/skills/deep-research.md): Primary-source investigation committed to the repo as Markdown — the reading legwork, delegated.
+- [authoring-skills](https://mohmaedeslam00116.github.io/waypower-docs/md/skills/authoring-skills.md): TDD for process documentation — write and pressure-test skills of your own.
+
+## Blog
+
+- [This site was built by the skills it documents](https://mohmaedeslam00116.github.io/waypower-docs/blog/building-these-docs-with-waypower): The fastest way to find out whether a workflow pack works is to make it build its own marketing site. So that's what we did: the pages you're reading were de…
+- [waypower v0.1.0: 13 skills, one pipeline](https://mohmaedeslam00116.github.io/waypower-docs/blog/waypower-v0-1-0): Your agent already knows how to code. The bottleneck was never the model's syntax — it's that nobody taught it *how to work*: how to refuse a vague brief, ho…
+
+## Optional
+
+- [Skills pack source (evals ship with every skill)](https://github.com/mohmaedeslam00116/waypower)
+- [Install via skills.sh](https://skills.sh/mohmaedeslam00116/waypower)

@@ -1,0 +1,57 @@
+# design-interview
+
+> Frontier-round interviewing that ends at a written, user-approved spec — before any code exists.
+> Source: https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/design-interview
+
+<SkillSpec n="02" type="process" invocation="auto-invoked" trigger="A vague or high-stakes creative brief" output="A written spec you approve before any code exists" pairs={['tracer-plan', 'dual-axis-review']} />
+
+**One line:** no code from a vague brief — the agent interviews you until the
+design is fully formed, then stops at your approval gate.
+
+## When it fires
+
+Before **any creative work**: creating features, building components, adding
+functionality, modifying behavior. It's the mandatory first step of the
+pipeline.
+
+## What it does
+
+1. **Classifies** the request — spike, bounded, or architectural — which sets
+   how deep the interview goes.
+2. **Interviews in frontier rounds**: each round pushes the boundary of what's
+   still undecided (users, data, failure modes, boundaries) instead of asking
+   laundry-list questions.
+3. **Ends at a written spec** — and waits. Implementation cannot start until
+   you approve it.
+
+## What you get
+
+A spec you actually read and signed off on — which means no "that's not what I
+meant" three hours later. The interview surfaces the questions you didn't know
+needed answering while they're still free to answer.
+
+## Example
+
+> **You:** add caching to the dashboard
+> **Agent (design-interview):** Before I touch code — three rounds of
+> questions. Round 1: what reads hurt today — first paint, or interactions
+> after? Who notices: you, or users? What's the staleness budget — seconds,
+> minutes?
+
+## From a real session
+
+<Transcript
+  source="building this docs site, 2026-09-23 — logged in the dogfooding post"
+  lines={[
+    {glyph: 'you', text: '“Build a docs site for the pack. New repo, a popular docs template, our own skills.”'},
+    {glyph: 'wp', text: <>Using <b>design-interview</b> — vague brief detected; no scaffolding yet</>},
+    {glyph: 'gate', text: 'round 1 — register, users, success metric → “the install command gets copied”'},
+    {glyph: 'gate', text: 'round 2 — four brand personalities → confident engineering; anti-reference: AI-hype gradient blobs'},
+    {glyph: 'ok', text: 'spec approved → PRODUCT.md + DESIGN.md committed before any page existed'},
+  ]}
+/>
+
+## Pairs with
+
+Hands its approved spec to [`tracer-plan`](./tracer-plan). For efforts too
+foggy for a single spec, route through [`waymap`](./waymap) first.
