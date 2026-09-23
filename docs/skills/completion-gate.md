@@ -1,0 +1,34 @@
+---
+title: completion-gate
+description: Evidence before assertions — verification commands must run and pass before any success claim.
+---
+
+# completion-gate
+
+<span className="skill-badge skill-badge--process">process · auto</span>
+
+**One line:** "done" now means *verified* — the agent cannot claim success it
+hasn't demonstrated.
+
+## When it fires
+
+Whenever the agent is about to claim work is complete, fixed, or passing —
+before commits, PRs, or closing tickets.
+
+## What it does
+
+- Requires the **verification commands to actually run** (tests, build, lint,
+  typecheck — whatever proves the claim) and their output to be inspected.
+- Blocks success claims made from memory, assumption, or "it passed a minute
+  ago".
+- Makes failures visible instead of summarizing them away.
+
+## What you get
+
+You can trust the word "done". When a waypower-driven agent says the tests
+pass, they passed — in this session, just now, with output to show for it.
+
+## Pairs with
+
+The last gate before [`dual-axis-review`](./dual-axis-review); every skill
+that produces work answers to it.

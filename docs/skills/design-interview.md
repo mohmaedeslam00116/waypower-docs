@@ -1,0 +1,46 @@
+---
+title: design-interview
+description: Frontier-round interviewing that ends at a written, user-approved spec — before any code exists.
+---
+
+# design-interview
+
+<span className="skill-badge skill-badge--process">process · auto</span>
+
+**One line:** no code from a vague brief — the agent interviews you until the
+design is fully formed, then stops at your approval gate.
+
+## When it fires
+
+Before **any creative work**: creating features, building components, adding
+functionality, modifying behavior. It's the mandatory first step of the
+pipeline.
+
+## What it does
+
+1. **Classifies** the request — spike, bounded, or architectural — which sets
+   how deep the interview goes.
+2. **Interviews in frontier rounds**: each round pushes the boundary of what's
+   still undecided (users, data, failure modes, boundaries) instead of asking
+   laundry-list questions.
+3. **Ends at a written spec** — and waits. Implementation cannot start until
+   you approve it.
+
+## What you get
+
+A spec you actually read and signed off on — which means no "that's not what I
+meant" three hours later. The interview surfaces the questions you didn't know
+needed answering while they're still free to answer.
+
+## Example
+
+> **You:** add caching to the dashboard
+> **Agent (design-interview):** Before I touch code — three rounds of
+> questions. Round 1: what reads hurt today — first paint, or interactions
+> after? Who notices: you, or users? What's the staleness budget — seconds,
+> minutes?
+
+## Pairs with
+
+Hands its approved spec to [`tracer-plan`](./tracer-plan). For efforts too
+foggy for a single spec, route through [`waymap`](./waymap) first.

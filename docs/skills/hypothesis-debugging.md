@@ -1,0 +1,39 @@
+---
+title: hypothesis-debugging
+description: Root cause through ranked, falsifiable hypotheses and a tight feedback loop — never guess-and-check.
+---
+
+# hypothesis-debugging
+
+<span className="skill-badge skill-badge--process">process · auto</span>
+
+**One line:** debugging as the scientific method — ranked hypotheses, each
+falsifiable, each tested by the cheapest experiment that could kill it.
+
+## When it fires
+
+On **any bug, test failure, or unexpected behavior** — before any fix is
+proposed. It has pipeline priority: a bug found mid-implementation pauses
+`seam-driven-tdd` until the root cause is known.
+
+## What it does
+
+1. **Ranks hypotheses** by likelihood × cost of testing.
+2. **Falsifies, doesn't confirm** — each experiment is designed to *kill* a
+   hypothesis, not to make the favorite look right.
+3. **Tight feedback loop** — smallest possible reproduction, one variable at
+   a time.
+4. Only then: a fix, verified against the reproduction — which usually becomes
+   the regression test.
+
+## What you get
+
+Fixes that stay fixed. No "try this and see" loops, no whack-a-mole — and a
+written trail of what was ruled out, so the next occurrence starts from
+evidence, not folklore.
+
+## Pairs with
+
+Its regression tests land through [`seam-driven-tdd`](./seam-driven-tdd);
+verified fixes pass [`completion-gate`](./completion-gate) before being called
+done.
