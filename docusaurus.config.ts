@@ -97,6 +97,8 @@ const config: Config = {
     ],
   ],
 
+  plugins: [require.resolve('./plugins/llms')],
+
   themes: [
     [
       require.resolve('@easyops-cn/docusaurus-search-local'),
@@ -193,6 +195,12 @@ const config: Config = {
             {
               label: 'Site source',
               href: 'https://github.com/mohmaedeslam00116/waypower-docs',
+            },
+            {
+              // Static asset written at postBuild — must stay an absolute
+              // (external) link or the broken-link checker fails on it.
+              label: 'llms.txt',
+              href: 'https://mohmaedeslam00116.github.io/waypower-docs/llms.txt',
             },
           ],
         },

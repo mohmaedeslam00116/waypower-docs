@@ -1,0 +1,55 @@
+/* CopyMarkdown — instrument-sheet chrome: 1px rules, mono labels, no glow. */
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.7rem;
+  margin: -0.4rem 0 1.2rem;
+  font-family: var(--wp-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.tag {
+  border: 1px solid var(--wp-line-strong);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+  color: var(--wp-ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  user-select: none;
+}
+
+.btn {
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--wp-ink-2);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-bottom: 1px dashed var(--wp-line-strong);
+}
+
+.btn:hover {
+  color: var(--wp-marine);
+  border-bottom-color: var(--wp-marine);
+}
+
+.link {
+  color: var(--wp-ink-3);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--wp-marine);
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .row {
+    justify-content: flex-start;
+    margin-top: 0;
+  }
+}

@@ -4,6 +4,7 @@ description: Evidence before assertions — verification commands must run and p
 ---
 
 import SkillSpec from '@site/src/components/SkillSpec';
+import Transcript from '@site/src/components/Transcript';
 
 # completion-gate
 
@@ -29,6 +30,18 @@ before commits, PRs, or closing tickets.
 
 You can trust the word "done". When a waypower-driven agent says the tests
 pass, they passed — in this session, just now, with output to show for it.
+
+## From a real session
+
+<Transcript
+  source="closing ticket t06 (CI evals + install matrix), 2026-09-23 — evidence links in the ticket"
+  lines={[
+    {glyph: 'wp', text: <>Using <b>completion-gate</b> — “CI works” is a claim, not evidence</>},
+    {glyph: 'gate', text: 'claim → proof: PR #1, run 35918256029 — eval-gate + 4 matrix cells, all pass'},
+    {glyph: 'gate', text: 'honesty check — docs claims re-read against the matrix results; wording corrected'},
+    {glyph: 'ok', text: 'PASS — merged; ticket closed with run links, not assertions'},
+  ]}
+/>
 
 ## Pairs with
 

@@ -4,6 +4,7 @@ description: Root cause through ranked, falsifiable hypotheses and a tight feedb
 ---
 
 import SkillSpec from '@site/src/components/SkillSpec';
+import Transcript from '@site/src/components/Transcript';
 
 # hypothesis-debugging
 
@@ -33,6 +34,19 @@ proposed. It has pipeline priority: a bug found mid-implementation pauses
 Fixes that stay fixed. No "try this and see" loops, no whack-a-mole — and a
 written trail of what was ruled out, so the next occurrence starts from
 evidence, not folklore.
+
+## From a real session
+
+<Transcript
+  source="the CI install-matrix failure, 2026-09-23 — waypower PR #1, run logs on GitHub"
+  lines={[
+    {glyph: 'you', text: '“install-matrix passes locally, fails in CI”'},
+    {glyph: 'wp', text: <>Using <b>hypothesis-debugging</b> — ranked hypotheses, cheapest kill first</>},
+    {glyph: 'gate', text: 'H1 “--json silently dropped?” → CI debug-dump step confirms: the runner’s CLI emits no JSON report'},
+    {glyph: 'gate', text: 'H2 “stale CLI on the runner?” → claude-code landed in .agents/skills — pre-1.7 behavior, hypothesis confirmed'},
+    {glyph: 'ok', text: 'pinned skills@1.7.0 — 4/4 matrix cells green on the re-run'},
+  ]}
+/>
 
 ## Pairs with
 

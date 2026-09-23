@@ -4,6 +4,7 @@ description: Frontier-round interviewing that ends at a written, user-approved s
 ---
 
 import SkillSpec from '@site/src/components/SkillSpec';
+import Transcript from '@site/src/components/Transcript';
 
 # design-interview
 
@@ -41,6 +42,19 @@ needed answering while they're still free to answer.
 > questions. Round 1: what reads hurt today — first paint, or interactions
 > after? Who notices: you, or users? What's the staleness budget — seconds,
 > minutes?
+
+## From a real session
+
+<Transcript
+  source="building this docs site, 2026-09-23 — logged in the dogfooding post"
+  lines={[
+    {glyph: 'you', text: '“Build a docs site for the pack. New repo, a popular docs template, our own skills.”'},
+    {glyph: 'wp', text: <>Using <b>design-interview</b> — vague brief detected; no scaffolding yet</>},
+    {glyph: 'gate', text: 'round 1 — register, users, success metric → “the install command gets copied”'},
+    {glyph: 'gate', text: 'round 2 — four brand personalities → confident engineering; anti-reference: AI-hype gradient blobs'},
+    {glyph: 'ok', text: 'spec approved → PRODUCT.md + DESIGN.md committed before any page existed'},
+  ]}
+/>
 
 ## Pairs with
 

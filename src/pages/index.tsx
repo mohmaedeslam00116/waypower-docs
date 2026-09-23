@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import Transcript, {type TranscriptLine} from '@site/src/components/Transcript';
 import styles from './index.module.css';
 
 const INSTALL_CMD = 'npx skills add mohmaedeslam00116/waypower --all -g --copy';
@@ -39,7 +40,7 @@ const GATES = [
   {n: '6', name: 'finish-handoff', q: 'Is the handoff warm?'},
 ];
 
-const TRANSCRIPT: {glyph: 'you' | 'wp' | 'gate' | 'ok'; text: React.ReactNode}[] = [
+const TRANSCRIPT: TranscriptLine[] = [
   {glyph: 'you', text: '“Build a docs site for the pack. New repo, our own skills.”'},
   {glyph: 'wp', text: <>Using <b>design-interview</b> — vague brief detected</>},
   {glyph: 'gate', text: '2 rounds · register, voice, brand → spec approved'},
@@ -82,33 +83,8 @@ function Console() {
   );
 }
 
-function Transcript() {
-  return (
-    <div className={styles.transcript} role="log" aria-label="Example waypower session transcript">
-      <div className={styles.transcriptBar}>
-        <span className={styles.transcriptDot} />
-        <span>session — agent + waypower</span>
-      </div>
-      <div className={styles.transcriptBody}>
-        {TRANSCRIPT.map((l, i) => (
-          <div
-            key={i}
-            className={`${styles.tLine} ${styles[`t_${l.glyph}`]}`}
-            style={{animationDelay: `${0.15 + i * 0.09}s`}}>
-            <span className={styles.tGlyph}>
-              {l.glyph === 'you' ? '▸' : l.glyph === 'wp' ? '✳' : l.glyph === 'ok' ? '✓' : '·'}
-            </span>
-            <span>{l.text}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-
 const STATS = [
-  {v: '12/13', l: 'skills discriminate in paired baseline-vs-skill evals'},
+  {v: '13/13', l: 'skills discriminate in paired baseline-vs-skill evals'},
   {v: '0', l: 'security alerts — audited on install'},
   {v: '13', l: 'skills, one pipeline, one orchestrator'},
   {v: 'MIT', l: 'open source — evals ship with every skill'},
@@ -139,7 +115,12 @@ function Hero() {
             </Link>
           </div>
         </div>
-        <Transcript />
+        <Transcript
+          source="building this docs site, 2026-09-23 — full log in the dogfooding post"
+          animate
+          captionOnDark
+          lines={TRANSCRIPT}
+        />
       </div>
     </header>
   );

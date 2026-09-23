@@ -171,66 +171,8 @@
   color: var(--wp-amber);
 }
 
-/* ---------- Session transcript ---------- */
-
-.transcript {
-  background: var(--wp-panel-2);
-  border: 1px solid var(--wp-panel-line);
-  border-radius: 12px;
-  overflow: hidden;
-  animation: rise 0.6s ease 0.3s both;
-}
-
-.transcriptBar {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.7rem 1.1rem;
-  border-bottom: 1px solid var(--wp-panel-line);
-  font-family: var(--wp-font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--wp-panel-ink-2);
-}
-
-.transcriptDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--wp-amber);
-  flex: none;
-}
-
-.transcriptBody {
-  padding: 1.1rem 1.25rem 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  font-family: var(--wp-font-mono);
-  font-size: 0.84rem;
-  line-height: 1.55;
-}
-
-.tLine {
-  display: flex;
-  gap: 0.7rem;
-  opacity: 0;
-  animation: rise 0.4s ease forwards;
-}
-
-.tGlyph {
-  flex: none;
-  width: 1.1em;
-  text-align: center;
-}
-
-.t_you { color: var(--wp-panel-ink-2); }
-.t_wp { color: var(--wp-panel-ink); }
-.t_wp .tGlyph { color: var(--wp-amber); }
-.t_wp b { color: var(--wp-amber); font-weight: 600; }
-.t_gate { color: var(--wp-panel-ink-2); padding-left: 1.1rem; }
-.t_ok { color: var(--wp-pass); font-weight: 600; }
+/* ---------- Session transcript ----------
+   Lives in src/components/Transcript (shared with skill pages, t09). */
 
 /* ---------- Stats strip (calibration rows) ---------- */
 
@@ -513,9 +455,7 @@
   .heroTitle,
   .heroSub,
   .console,
-  .heroCtas,
-  .transcript,
-  .tLine {
+  .heroCtas {
     animation: none !important;
     opacity: 1 !important;
   }
