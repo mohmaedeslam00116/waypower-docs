@@ -80,7 +80,7 @@ ship. This site is the proof artifact: the same pipeline documented in the
 <a class="" href="https://mohmaedeslam00116.github.io/waypower-docs/docs/skills/using-waypower">skills reference</a> produced the design system,
 the content, and the deploy — in one session, with the gates doing their job.</p>
 <p>Try it on yours:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">npx skills add mohmaedeslam00116/waypower --all -g --copy</span><br></div></code></pre></div></div>]]></content:encoded>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#d6deeb;--prism-background-color:#011627"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#d6deeb;background-color:#011627"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#d6deeb"><span class="token plain">npx skills add mohmaedeslam00116/waypower --all -g --copy</span><br></div></code></pre></div></div>]]></content:encoded>
             <category>dogfooding</category>
             <category>meta</category>
             <category>waypower</category>
@@ -96,7 +96,7 @@ syntax — it's that nobody taught it <em>how to work</em>: how to refuse a vagu
 brief, how to plan before building, how to prove a claim before making it.</p>
 <p>waypower v0.1.0 is out today: <strong>13 pressure-tested agent skills</strong> forming one
 idea-to-ship pipeline for Claude Code and compatible harnesses.</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">npx skills add mohmaedeslam00116/waypower --all -g --copy</span><br></div></code></pre></div></div>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#d6deeb;--prism-background-color:#011627"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#d6deeb;background-color:#011627"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#d6deeb"><span class="token plain">npx skills add mohmaedeslam00116/waypower --all -g --copy</span><br></div></code></pre></div></div>
 <!-- -->
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-in-the-pack">What's in the pack<a href="https://mohmaedeslam00116.github.io/waypower-docs/blog/waypower-v0-1-0#whats-in-the-pack" class="hash-link" aria-label="Direct link to What's in the pack" title="Direct link to What's in the pack" translate="no">​</a></h2>
 <ul>
