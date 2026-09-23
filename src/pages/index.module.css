@@ -1,225 +1,523 @@
-/* waypower landing — calm authority: whitespace and type do the work */
+/* waypower homepage — instrument-panel hero + calibration-sheet sections.
+   See DESIGN.md. No shadows; 1px rules; amber rationed to signals. */
 
-.page {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 24px;
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
 }
+
+/* ---------- Spec labels (amber node → label → rule) ---------- */
+
+.specLabel,
+.specLabelDark {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--wp-font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 1.4rem;
+}
+
+.specLabel { color: var(--wp-ink-3); }
+.specLabelDark { color: var(--wp-panel-ink-2); }
+
+.specLabel::before,
+.specLabelDark::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--wp-amber);
+  flex: none;
+}
+
+.specLabel::after,
+.specLabelDark::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+}
+
+.specLabel::after { background: var(--wp-line); }
+.specLabelDark::after { background: var(--wp-panel-line); }
+
+/* ---------- Hero (instrument panel) ---------- */
 
 .hero {
-  padding: 112px 0 96px;
-  max-width: 780px;
+  position: relative;
+  overflow: hidden;
+  background: var(--wp-panel);
+  color: var(--wp-panel-ink);
+  border-bottom: 1px solid var(--wp-panel-line);
 }
 
-.eyebrow {
-  font-family: var(--ifm-font-family-monospace);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--wp-primary);
-  margin: 0 0 20px;
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(oklch(1 0 0 / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(1 0 0 / 0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
 }
 
-.h1 {
-  font-size: clamp(2.2rem, 5vw, 3.4rem);
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  font-weight: 700;
-  margin: 0 0 24px;
-}
-
-.h1 em {
-  font-style: normal;
-  color: var(--wp-primary);
-}
-
-.lede {
-  font-size: 1.13rem;
-  line-height: 1.65;
-  color: var(--wp-muted);
-  max-width: 62ch;
-  margin: 0 0 32px;
-}
-
-.install {
-  max-width: 640px;
-  margin-bottom: 24px;
-}
-
-.install :global(.theme-code-block) {
-  border: 1px solid var(--wp-border);
-  box-shadow: none;
-}
-
-.ctaRow {
-  display: flex;
-  gap: 12px;
+.heroInner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5.5rem 2rem 5.5rem;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 4rem;
   align-items: center;
 }
 
-.ctaPrimary {
-  display: inline-block;
-  background: var(--wp-primary);
-  color: oklch(1 0 0);
+.heroTitle {
+  font-size: clamp(2.5rem, 4.4vw, 3.8rem);
   font-weight: 600;
-  padding: 10px 22px;
-  border-radius: 8px;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 0 0 1.25rem;
+  color: var(--wp-panel-ink);
+  animation: rise 0.5s ease 0.05s both;
 }
 
-.ctaPrimary:hover {
-  background: var(--wp-primary-strong);
-  color: oklch(1 0 0);
-  text-decoration: none;
+.heroAccent { color: var(--wp-amber); }
+
+.heroSub {
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: var(--wp-panel-ink-2);
+  max-width: 34rem;
+  margin: 0;
+  animation: rise 0.5s ease 0.15s both;
 }
 
-.ctaGhost {
-  display: inline-block;
+/* ---------- Install console ---------- */
+
+.console {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.9rem;
+  padding: 0.85rem 1.1rem;
+  max-width: 37rem;
+  background: var(--wp-panel-2);
+  border: 1px solid var(--wp-panel-line);
+  border-radius: 10px;
+  animation: rise 0.5s ease 0.25s both;
+}
+
+.consolePrompt {
+  font-family: var(--wp-font-mono);
+  color: var(--wp-amber);
   font-weight: 600;
-  padding: 10px 18px;
-  border-radius: 8px;
-  border: 1px solid var(--wp-border);
+  flex: none;
+}
+
+.consoleCmd {
+  font-family: var(--wp-font-mono);
+  font-size: 0.88rem;
+  color: var(--wp-panel-ink);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  overflow-x: auto;
+  flex: 1;
+}
+
+.copyBtn {
+  flex: none;
+  font-family: var(--wp-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wp-panel-ink-2);
+  background: transparent;
+  border: 1px solid var(--wp-panel-line);
+  border-radius: 6px;
+  padding: 0.35em 0.8em;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.copyBtn:hover {
+  color: var(--wp-amber);
+  border-color: var(--wp-amber);
+}
+
+.heroCtas {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.6rem;
+  flex-wrap: wrap;
+  animation: rise 0.5s ease 0.35s both;
+}
+
+.ghostBtn {
+  background: transparent;
+  border-color: var(--wp-panel-line);
+  color: var(--wp-panel-ink);
+}
+
+.ghostBtn:hover {
+  background: transparent;
+  border-color: var(--wp-amber);
+  color: var(--wp-amber);
+}
+
+/* ---------- Session transcript ---------- */
+
+.transcript {
+  background: var(--wp-panel-2);
+  border: 1px solid var(--wp-panel-line);
+  border-radius: 12px;
+  overflow: hidden;
+  animation: rise 0.6s ease 0.3s both;
+}
+
+.transcriptBar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1.1rem;
+  border-bottom: 1px solid var(--wp-panel-line);
+  font-family: var(--wp-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wp-panel-ink-2);
+}
+
+.transcriptDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--wp-amber);
+  flex: none;
+}
+
+.transcriptBody {
+  padding: 1.1rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  font-family: var(--wp-font-mono);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.tLine {
+  display: flex;
+  gap: 0.7rem;
+  opacity: 0;
+  animation: rise 0.4s ease forwards;
+}
+
+.tGlyph {
+  flex: none;
+  width: 1.1em;
+  text-align: center;
+}
+
+.t_you { color: var(--wp-panel-ink-2); }
+.t_wp { color: var(--wp-panel-ink); }
+.t_wp .tGlyph { color: var(--wp-amber); }
+.t_wp b { color: var(--wp-amber); font-weight: 600; }
+.t_gate { color: var(--wp-panel-ink-2); padding-left: 1.1rem; }
+.t_ok { color: var(--wp-pass); font-weight: 600; }
+
+/* ---------- Stats strip (calibration rows) ---------- */
+
+.stats {
+  background: var(--wp-paper);
+  border-bottom: 1px solid var(--wp-line);
+}
+
+.statsInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.4rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.statCell {
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--wp-line);
+}
+
+.statCell:first-child {
+  border-left: none;
+  padding-left: 0;
+}
+
+.statValue {
+  font-family: var(--wp-font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--wp-ink);
+  font-feature-settings: 'tnum';
+}
+
+.statLabel {
+  font-size: 0.85rem;
+  color: var(--wp-ink-2);
+  margin-top: 0.35rem;
+}
+
+/* ---------- Sections ---------- */
+
+.section { padding: 5rem 0; background: var(--wp-paper); }
+
+.sectionAlt {
+  padding: 5rem 0;
+  background: var(--wp-marine-soft);
+  border-top: 1px solid var(--wp-line);
+  border-bottom: 1px solid var(--wp-line);
+}
+
+.sectionInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.sectionTitle {
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  margin: 0 0 0.9rem;
   color: var(--wp-ink);
 }
 
-.ctaGhost:hover {
-  border-color: var(--wp-primary);
-  color: var(--wp-primary);
-  text-decoration: none;
+.sectionLead {
+  color: var(--wp-ink-2);
+  max-width: 40rem;
+  font-size: 1.05rem;
+  margin: 0 0 2.75rem;
 }
 
-.section {
-  padding: 64px 0;
-  border-top: 1px solid var(--wp-border);
+/* ---------- Pipeline route ---------- */
+
+.route {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
 }
 
-.h2 {
-  font-size: 1.7rem;
-  letter-spacing: -0.02em;
-  margin: 0 0 12px;
-}
-
-.sectionLede {
-  color: var(--wp-muted);
-  max-width: 64ch;
-  margin: 0 0 28px;
-}
-
-/* Pipeline strip */
-.strip {
+.gate {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px 0;
-  align-items: stretch;
-  margin-top: 28px;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 2rem 1.1rem 0 0;
 }
 
-.stage {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.gate::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: var(--wp-line-strong);
 }
 
-.stageName {
-  font-family: var(--ifm-font-family-monospace);
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
-  padding: 6px 10px;
-  border: 1px solid var(--wp-border);
-  border-radius: 6px;
-  background: var(--wp-surface);
+.gate:last-child::before { right: 1.1rem; }
+
+.gateNode {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--wp-paper);
+  border: 2.5px solid var(--wp-marine);
 }
 
-.stageSkill {
-  font-size: 0.8rem;
-  color: var(--wp-muted);
+.gate:first-child .gateNode {
+  background: var(--wp-amber);
+  border-color: var(--wp-amber);
 }
 
-.arrow {
-  color: var(--wp-primary);
-  font-weight: 700;
-  margin: 0 12px;
+.gateNum {
+  font-family: var(--wp-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--wp-ink-3);
 }
 
-/* Skills grid */
+.gateName {
+  font-family: var(--wp-font-mono);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--wp-ink);
+}
+
+.gateQ {
+  font-size: 0.85rem;
+  color: var(--wp-ink-2);
+}
+
+.onRamps {
+  font-size: 0.92rem;
+  color: var(--wp-ink-2);
+  border-top: 1px solid var(--wp-line);
+  padding-top: 1.4rem;
+  margin: 0;
+}
+
+/* ---------- Skills grid ---------- */
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
 }
 
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 16px;
-  border: 1px solid var(--wp-border);
-  border-radius: 8px;
-  background: var(--wp-surface);
+  gap: 0.45rem;
+  padding: 1.2rem 1.35rem 1.3rem;
+  border: 1px solid var(--wp-line);
+  border-radius: 10px;
+  background: var(--wp-paper);
+  text-decoration: none;
+  transition: border-color 140ms ease;
 }
 
 .card:hover {
-  border-color: var(--wp-primary);
+  border-color: var(--wp-marine);
   text-decoration: none;
 }
 
-.cardName {
-  font-family: var(--ifm-font-family-monospace);
-  font-weight: 700;
-  font-size: 0.92rem;
-  color: var(--wp-ink);
+.cardNum {
+  position: absolute;
+  top: 1.05rem;
+  right: 1.2rem;
+  font-family: var(--wp-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--wp-ink-3);
 }
 
-.cardBlurb {
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: var(--wp-muted);
+.cardName {
+  font-family: var(--wp-font-mono);
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--wp-ink);
+  transition: color 140ms ease;
 }
+
+.card:hover .cardName { color: var(--wp-marine); }
 
 .chip {
   align-self: flex-start;
-  font-family: var(--ifm-font-family-monospace);
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  padding: 2px 8px;
+  font-family: var(--wp-font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.22em 0.65em;
   border-radius: 999px;
+  border: 1px solid var(--wp-line-strong);
+  color: var(--wp-ink-2);
 }
 
-.chip_orchestrator { background: var(--wp-primary); color: oklch(1 0 0); }
-.chip_process { background: oklch(from var(--wp-primary) l c h / 12%); color: var(--wp-primary); }
-.chip_tool { background: var(--wp-accent); color: oklch(1 0 0); }
+.chip_orchestrator { border-color: var(--wp-amber); color: oklch(0.5 0.12 70); }
+.chip_process { border-color: var(--wp-marine); color: var(--wp-marine-deep); }
 
-/* Proof band */
-.proofBand {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
-  padding: 48px 0;
-  border-top: 1px solid var(--wp-border);
-  border-bottom: 1px solid var(--wp-border);
-}
+[data-theme='dark'] .chip_orchestrator { color: var(--wp-amber); }
+[data-theme='dark'] .chip_process { color: var(--wp-marine); }
 
-.proof {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.proofNum {
-  font-family: var(--ifm-font-family-monospace);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--wp-primary);
-}
-
-.proofText {
+.cardLine {
   font-size: 0.88rem;
-  color: var(--wp-muted);
   line-height: 1.5;
+  color: var(--wp-ink-2);
+}
+
+/* ---------- Closing (instrument panel) ---------- */
+
+.closing {
+  position: relative;
+  overflow: hidden;
+  background: var(--wp-panel);
+  border-top: 1px solid var(--wp-panel-line);
+  color: var(--wp-panel-ink);
+}
+
+.closing::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(oklch(1 0 0 / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(1 0 0 / 0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.closingInner {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 4.5rem 2rem 5rem;
+}
+
+.closingTitle {
+  font-size: clamp(2rem, 3.4vw, 2.8rem);
+  margin: 0 0 1rem;
+}
+
+.closingText {
+  color: var(--wp-panel-ink-2);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 0 2rem;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 996px) {
+  .heroInner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-top: 4rem;
+  }
+  .route { grid-template-columns: repeat(3, 1fr); row-gap: 2.25rem; }
+  .gate::before { display: none; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .statsInner { grid-template-columns: repeat(2, 1fr); row-gap: 1.75rem; }
+  .statCell:nth-child(odd) { border-left: none; padding-left: 0; }
 }
 
 @media (max-width: 640px) {
-  .hero { padding: 72px 0 64px; }
-  .section { padding: 48px 0; }
+  .grid { grid-template-columns: 1fr; }
+  .route { grid-template-columns: repeat(2, 1fr); }
+  .console { flex-wrap: wrap; }
+  .consoleCmd { white-space: normal; word-break: break-all; }
 }
+
+/* ---------- Motion discipline ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .heroTitle,
+  .heroSub,
+  .console,
+  .heroCtas,
+  .transcript,
+  .tLine {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+

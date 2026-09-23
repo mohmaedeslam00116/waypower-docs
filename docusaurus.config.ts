@@ -26,6 +26,35 @@ const config: Config = {
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
 
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {rel: 'preconnect', href: 'https://api.fontshare.com'},
+    },
+    {
+      tagName: 'link',
+      attributes: {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
+    },
+    {
+      tagName: 'link',
+      attributes: {rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous'},
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'stylesheet',
+        href: 'https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap',
+      },
+    },
+  ],
+
   onBrokenLinks: 'throw',
 
   // Even if you don't use internationalization, you can use this field to set
@@ -68,11 +97,18 @@ const config: Config = {
   ],
 
   themeConfig: {
+    image: 'img/social-card.svg',
     colorMode: {
       respectPrefersColorScheme: true,
     },
     navbar: {
       title: 'waypower',
+      logo: {
+        alt: 'waypower',
+        src: 'img/logo.svg',
+        width: 28,
+        height: 28,
+      },
       items: [
         {
           type: 'docSidebar',
@@ -147,8 +183,8 @@ const config: Config = {
       copyright: `Copyright © ${new Date().getFullYear()} waypower contributors. MIT licensed. Built with Docusaurus.`,
     },
     prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      theme: prismThemes.nightOwl,
+      darkTheme: prismThemes.nightOwl,
     },
   } satisfies Preset.ThemeConfig,
 };

@@ -1,124 +1,253 @@
-import Link from '@docusaurus/Link';
-import CodeBlock from '@theme/CodeBlock';
+import React from 'react';
 import Layout from '@theme/Layout';
-import Heading from '@theme/Heading';
+import Link from '@docusaurus/Link';
 import styles from './index.module.css';
 
-const INSTALL = 'npx skills add mohmaedeslam00116/waypower --all -g --copy';
+const INSTALL_CMD = 'npx skills add mohmaedeslam00116/waypower --all -g --copy';
 
-const STAGES = [
-  ['IDEA', 'design-interview'],
-  ['PLAN', 'tracer-plan'],
-  ['BUILD', 'seam-driven-tdd'],
-  ['VERIFY', 'completion-gate'],
-  ['REVIEW', 'dual-axis-review'],
-  ['SHIP', 'finish-handoff'],
-] as const;
+type SkillType = 'orchestrator' | 'process' | 'tool';
 
-const PROCESS_SKILLS: [string, string][] = [
-  ['design-interview', 'No code from a vague brief — interviews you to an approved spec'],
-  ['tracer-plan', 'Spec → tracer-bullet tickets, each leaving the system working'],
-  ['seam-design', 'Deep-module vocabulary; decides where the interfaces live'],
-  ['seam-driven-tdd', 'Iron Law TDD: verified RED before GREEN, at confirmed seams'],
-  ['hypothesis-debugging', 'Ranked, falsifiable hypotheses — never guess-and-check'],
-  ['domain-glossary', 'One word per concept; owns CONTEXT.md and ADRs'],
-  ['completion-gate', 'Evidence before assertions — "done" means verified'],
-  ['dual-axis-review', 'Two review agents per diff: Standards + Spec'],
+type Skill = {
+  n: string;
+  name: string;
+  type: SkillType;
+  line: string;
+};
+
+const SKILLS: Skill[] = [
+  {n: '01', name: 'using-waypower', type: 'orchestrator', line: 'Routes every task to the right discipline — before doing anything.'},
+  {n: '02', name: 'design-interview', type: 'process', line: 'No code from a vague brief; interviews you to an approved spec.'},
+  {n: '03', name: 'tracer-plan', type: 'process', line: 'The thinnest end-to-end slice first, then layers.'},
+  {n: '04', name: 'seam-design', type: 'process', line: 'Module seams and contracts before implementation.'},
+  {n: '05', name: 'seam-driven-tdd', type: 'process', line: 'Verified RED before GREEN, at confirmed seams.'},
+  {n: '06', name: 'hypothesis-debugging', type: 'process', line: 'Falsifiable hypotheses, ranked — never guess-and-check.'},
+  {n: '07', name: 'domain-glossary', type: 'process', line: 'One word per concept; owns CONTEXT.md and ADRs.'},
+  {n: '08', name: 'completion-gate', type: 'process', line: '“Done” is a claim that needs evidence.'},
+  {n: '09', name: 'dual-axis-review', type: 'process', line: 'Two reviewers per diff: standards and spec fitness.'},
+  {n: '10', name: 'waymap', type: 'tool', line: 'Charts big, foggy efforts into a decision map.'},
+  {n: '11', name: 'finish-handoff', type: 'tool', line: 'Finishes branches cleanly; hands the session off warm.'},
+  {n: '12', name: 'deep-research', type: 'tool', line: 'Primary-source answers, cited, committed to your repo.'},
+  {n: '13', name: 'authoring-skills', type: 'tool', line: 'TDD for skills — build and pressure-test your own.'},
 ];
 
-const TOOL_SKILLS: [string, string][] = [
-  ['waymap', 'Chart huge, foggy efforts into decision tickets'],
-  ['finish-handoff', 'Merge, clean up, and hand the session off warm'],
-  ['deep-research', 'Primary-source answers, committed to your repo'],
-  ['authoring-skills', 'TDD for skills — build and pressure-test your own'],
+const GATES = [
+  {n: '1', name: 'design-interview', q: 'What are we really building?'},
+  {n: '2', name: 'tracer-plan', q: 'What is the thinnest slice?'},
+  {n: '3', name: 'seam-driven-tdd', q: 'Is the RED verified?'},
+  {n: '4', name: 'completion-gate', q: 'Where is the evidence?'},
+  {n: '5', name: 'dual-axis-review', q: 'Correct — and fitting?'},
+  {n: '6', name: 'finish-handoff', q: 'Is the handoff warm?'},
 ];
 
-function SkillCard({name, blurb, kind}: {name: string; blurb: string; kind: string}) {
+const TRANSCRIPT: {glyph: 'you' | 'wp' | 'gate' | 'ok'; text: React.ReactNode}[] = [
+  {glyph: 'you', text: '“Build a docs site for the pack. New repo, our own skills.”'},
+  {glyph: 'wp', text: <>Using <b>design-interview</b> — vague brief detected</>},
+  {glyph: 'gate', text: '2 rounds · register, voice, brand → spec approved'},
+  {glyph: 'wp', text: <>Using <b>tracer-plan</b> — slicing to shippable tickets</>},
+  {glyph: 'gate', text: 'config → theme → content → landing → blog → deploy'},
+  {glyph: 'wp', text: <>Using <b>completion-gate</b> — evidence required</>},
+  {glyph: 'gate', text: 'build green · 30 pages · 0 broken links'},
+  {glyph: 'ok', text: 'PASS — pushed, deployed, live'},
+];
+
+function SpecLabel({children, onDark}: {children: React.ReactNode; onDark?: boolean}) {
   return (
-    <Link to={`/docs/skills/${name}`} className={styles.card}>
-      <span className={`${styles.chip} ${styles[`chip_${kind}`]}`}>{kind}</span>
-      <span className={styles.cardName}>{name}</span>
-      <span className={styles.cardBlurb}>{blurb}</span>
-    </Link>
+    <div className={onDark ? styles.specLabelDark : styles.specLabel}>{children}</div>
   );
 }
 
-export default function Home() {
+function Console() {
+  const [copied, setCopied] = React.useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(INSTALL_CMD);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    } catch {
+      /* clipboard unavailable — command stays visible */
+    }
+  };
   return (
-    <Layout title="Teach your agent how to work" description="13 pressure-tested agent skills forming a complete idea-to-ship pipeline for Claude Code.">
-      <main className={styles.page}>
-        <section className={styles.hero}>
-          <p className={styles.eyebrow}>waypower · 13 agent skills · MIT</p>
-          <Heading as="h1" className={styles.h1}>
-            Your agent already knows how to code.<br />
-            Teach it how to <em>work</em>.
-          </Heading>
-          <p className={styles.lede}>
-            waypower gives your coding agent a complete idea-to-ship pipeline:
-            interviewed design, tracer-bullet plans, enforced TDD, evidence-gated
-            completion, dual review — with you approving the decisions that matter.
+    <div className={styles.console}>
+      <span className={styles.consolePrompt}>$</span>
+      <code className={styles.consoleCmd}>{INSTALL_CMD}</code>
+      <button
+        type="button"
+        className={styles.copyBtn}
+        onClick={copy}
+        aria-label="Copy install command">
+        {copied ? 'copied ✓' : 'copy'}
+      </button>
+    </div>
+  );
+}
+
+function Transcript() {
+  return (
+    <div className={styles.transcript} role="log" aria-label="Example waypower session transcript">
+      <div className={styles.transcriptBar}>
+        <span className={styles.transcriptDot} />
+        <span>session — agent + waypower</span>
+      </div>
+      <div className={styles.transcriptBody}>
+        {TRANSCRIPT.map((l, i) => (
+          <div
+            key={i}
+            className={`${styles.tLine} ${styles[`t_${l.glyph}`]}`}
+            style={{animationDelay: `${0.15 + i * 0.09}s`}}>
+            <span className={styles.tGlyph}>
+              {l.glyph === 'you' ? '▸' : l.glyph === 'wp' ? '✳' : l.glyph === 'ok' ? '✓' : '·'}
+            </span>
+            <span>{l.text}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
+const STATS = [
+  {v: '12/13', l: 'skills discriminate in paired baseline-vs-skill evals'},
+  {v: '0', l: 'security alerts — audited on install'},
+  {v: '13', l: 'skills, one pipeline, one orchestrator'},
+  {v: 'MIT', l: 'open source — evals ship with every skill'},
+];
+
+function Hero() {
+  return (
+    <header className={styles.hero}>
+      <div className={styles.heroInner}>
+        <div className={styles.heroCopy}>
+          <SpecLabel onDark>AGENT SKILLS / 13</SpecLabel>
+          <h1 className={styles.heroTitle}>
+            Your agent already knows how to code.{' '}
+            <span className={styles.heroAccent}>Teach it how to work.</span>
+          </h1>
+          <p className={styles.heroSub}>
+            waypower is 13 pressure-tested skills that hand your coding agent a complete
+            idea-to-ship pipeline — interviewed design, tracer-bullet plans, enforced TDD,
+            evidence-gated completion — with you approving the decisions that matter.
           </p>
-          <div className={styles.install}>
-            <CodeBlock language="bash">{INSTALL}</CodeBlock>
+          <Console />
+          <div className={styles.heroCtas}>
+            <Link className="button button--primary button--lg" to="/docs/getting-started">
+              Get started
+            </Link>
+            <Link className={`button button--lg ${styles.ghostBtn}`} href="https://github.com/mohmaedeslam00116/waypower">
+              GitHub →
+            </Link>
           </div>
-          <div className={styles.ctaRow}>
-            <Link className={styles.ctaPrimary} to="/docs/intro">Get started</Link>
-            <Link className={styles.ctaGhost} to="https://github.com/mohmaedeslam00116/waypower">GitHub →</Link>
-          </div>
-        </section>
+        </div>
+        <Transcript />
+      </div>
+    </header>
+  );
+}
 
-        <section className={styles.section}>
-          <Heading as="h2" className={styles.h2}>One pipeline, not a bag of tricks</Heading>
-          <div className={styles.strip}>
-            {STAGES.map(([stage, skill], i) => (
-              <span key={stage} className={styles.stage}>
-                <span className={styles.stageName}>{stage}</span>
-                <span className={styles.stageSkill}>{skill}</span>
-                {i < STAGES.length - 1 && <span className={styles.arrow}>→</span>}
-              </span>
-            ))}
+function StatsStrip() {
+  return (
+    <section className={styles.stats} aria-label="Proof points">
+      <div className={styles.statsInner}>
+        {STATS.map((s) => (
+          <div key={s.v + s.l} className={styles.statCell}>
+            <div className={styles.statValue}>{s.v}</div>
+            <div className={styles.statLabel}>{s.l}</div>
           </div>
-        </section>
+        ))}
+      </div>
+    </section>
+  );
+}
 
-        <section className={styles.section}>
-          <Heading as="h2" className={styles.h2}>The skills</Heading>
-          <p className={styles.sectionLede}>
-            One orchestrator routes every task. Eight process skills fire on their
-            triggers. Four tools run when you call them by name.
-          </p>
-          <div className={styles.grid}>
-            <SkillCard name="using-waypower" kind="orchestrator"
-              blurb="Always active — routes every task to the right process skill" />
-            {PROCESS_SKILLS.map(([n, b]) => <SkillCard key={n} name={n} blurb={b} kind="process" />)}
-            {TOOL_SKILLS.map(([n, b]) => <SkillCard key={n} name={n} blurb={b} kind="tool" />)}
-          </div>
-        </section>
+function Pipeline() {
+  return (
+    <section className={styles.section}>
+      <div className={styles.sectionInner}>
+        <SpecLabel>PIPELINE / GATES</SpecLabel>
+        <h2 className={styles.sectionTitle}>One pipeline, not a bag of tricks</h2>
+        <p className={styles.sectionLead}>
+          Six gates. Each one asks a single hard question before work continues — and the
+          orchestrator makes sure none of them get skipped.
+        </p>
+        <ol className={styles.route}>
+          {GATES.map((g) => (
+            <li key={g.n} className={styles.gate}>
+              <span className={styles.gateNode} aria-hidden="true" />
+              <span className={styles.gateNum}>{g.n}</span>
+              <span className={styles.gateName}>{g.name}</span>
+              <span className={styles.gateQ}>{g.q}</span>
+            </li>
+          ))}
+        </ol>
+        <p className={styles.onRamps}>
+          On-ramps: stuck mid-build → <code>hypothesis-debugging</code> · epic too big and
+          foggy → <code>waymap</code> · deadline fact-check → <code>deep-research</code>
+        </p>
+      </div>
+    </section>
+  );
+}
 
-        <section className={styles.proofBand}>
-          <div className={styles.proof}>
-            <span className={styles.proofNum}>12/13</span>
-            <span className={styles.proofText}>skills discriminate in paired baseline evals — graded before release, not after</span>
-          </div>
-          <div className={styles.proof}>
-            <span className={styles.proofNum}>0 alerts</span>
-            <span className={styles.proofText}>security-audited on install — Safe, Low Risk</span>
-          </div>
-          <div className={styles.proof}>
-            <span className={styles.proofNum}>MIT</span>
-            <span className={styles.proofText}>open source, evals shipped with every skill</span>
-          </div>
-        </section>
+function SkillsGrid() {
+  return (
+    <section className={styles.sectionAlt}>
+      <div className={styles.sectionInner}>
+        <SpecLabel>REF / 13</SpecLabel>
+        <h2 className={styles.sectionTitle}>The skills</h2>
+        <p className={styles.sectionLead}>
+          One orchestrator routes every task. Eight process skills fire on their triggers.
+          Four tools run when you call them by name.
+        </p>
+        <div className={styles.grid}>
+          {SKILLS.map((s) => (
+            <Link key={s.n} to={`/docs/skills/${s.name}`} className={styles.card}>
+              <span className={styles.cardNum}>{s.n}</span>
+              <span className={styles.cardName}>{s.name}</span>
+              <span className={`${styles.chip} ${styles[`chip_${s.type}`]}`}>{s.type}</span>
+              <span className={styles.cardLine}>{s.line}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
-        <section className={styles.section}>
-          <Heading as="h2" className={styles.h2}>Built with its own medicine</Heading>
-          <p className={styles.sectionLede}>
-            This site was designed and shipped through the waypower pipeline —
-            the skills documented here built the pages you're reading.
-          </p>
-          <Link className={styles.ctaGhost} to="/blog/building-these-docs-with-waypower">
-            Read the dogfooding story →
+function Closing() {
+  return (
+    <section className={styles.closing}>
+      <div className={styles.closingInner}>
+        <SpecLabel onDark>META / 01</SpecLabel>
+        <h2 className={styles.closingTitle}>Built with its own medicine</h2>
+        <p className={styles.closingText}>
+          This site was designed, planned, verified, and shipped through the waypower
+          pipeline — the skills documented here built the pages you are reading.
+        </p>
+        <div className={styles.heroCtas}>
+          <Link className="button button--primary button--lg" to="/blog/building-these-docs-with-waypower">
+            Read the dogfooding story
           </Link>
-        </section>
+          <Link className={`button button--lg ${styles.ghostBtn}`} to="/docs/skills/using-waypower">
+            Browse the skills reference
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function Home(): React.ReactNode {
+  return (
+    <Layout
+      title="Teach your agent how to work"
+      description="waypower — 13 pressure-tested agent skills: one idea-to-ship pipeline for your coding agent. Interviewed design, tracer plans, enforced TDD, evidence-gated completion.">
+      <Hero />
+      <main>
+        <StatsStrip />
+        <Pipeline />
+        <SkillsGrid />
+        <Closing />
       </main>
     </Layout>
   );

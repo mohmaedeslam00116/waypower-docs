@@ -1,0 +1,17 @@
+npm notice run waypower-docs@0.0.0 deploy
+npm notice run docusaurus deploy
+[INFO] Deploy command invoked...
+[INFO] `git --version` code: 0
+[INFO] organizationName: mohmaedeslam00116
+[INFO] projectName: waypower-docs
+[INFO] deploymentBranch: gh-pages
+[INFO] Remote repo URL: https://mohmaedeslam00116@github.com/mohmaedeslam00116/waypower-docs.git
+[INFO] `git rev-parse HEAD` code: 0
+[INFO] [en] Creating an optimized production build...
+[SUCCESS] Generated static files in "build".
+[INFO] Use `npm run serve` command to test your build locally.
+[INFO] `git clone --depth 1 --branch gh-pages https://mohmaedeslam00116@github.com/mohmaedeslam00116/waypower-docs.git C:\Users\Dell\AppData\Local\Temp\waypower-docs-gh-pagesvBh7PP` code: 0
+[INFO] `git add --all` code: 0
+[INFO] `git commit -m Deploy\ website\ -\ based\ on\ 6e1448ed741f242258a7bfd473fe39c2bc2315d5 --allow-empty` code: 0
+[INFO] `git push --force origin gh-pages` code: 0
+[INFO] `echo "Website is live at https://mohmaedeslam00116.github.io/waypower-docs/."` code: 0

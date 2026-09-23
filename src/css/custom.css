@@ -1,120 +1,391 @@
-/**
- * waypower docs theme — "a senior engineer's desk at 9am".
- * Pure surfaces; one deep marine-teal primary does all the brand work;
- * a saturated amber accent is spent only on status and the primary CTA.
- * See DESIGN.md for the full system. OKLCH only.
- */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+/* ==========================================================================
+   waypower identity v2 — precision-instrument documentation
+   See DESIGN.md. Fonts: Clash Display (display) / Archivo (body) /
+   JetBrains Mono (code + spec labels). Hue anchor: OKLCH 200°.
+   ========================================================================== */
 
 :root {
-  --wp-bg: oklch(1 0 0);
-  --wp-surface: oklch(0.975 0.004 210);
-  --wp-ink: oklch(0.22 0.02 225);
-  --wp-primary: oklch(0.52 0.105 205);
-  --wp-primary-strong: oklch(0.45 0.11 205);
-  --wp-accent: oklch(0.7 0.15 70);
-  --wp-muted: oklch(0.49 0.015 225);
+  --wp-paper: oklch(0.99 0.003 240);
+  --wp-ink: oklch(0.22 0.02 250);
+  --wp-ink-2: oklch(0.46 0.02 250);
+  --wp-ink-3: oklch(0.58 0.015 250);
+  --wp-line: oklch(0.91 0.008 240);
+  --wp-line-strong: oklch(0.83 0.01 240);
+  --wp-marine: oklch(0.52 0.095 205);
+  --wp-marine-deep: oklch(0.42 0.08 210);
+  --wp-marine-soft: oklch(0.95 0.02 205);
+  --wp-panel: oklch(0.24 0.03 215);
+  --wp-panel-2: oklch(0.28 0.03 215);
+  --wp-panel-line: oklch(0.37 0.028 215);
+  --wp-panel-ink: oklch(0.94 0.015 210);
+  --wp-panel-ink-2: oklch(0.72 0.03 210);
+  --wp-amber: oklch(0.78 0.15 78);
+  --wp-amber-deep: oklch(0.6 0.13 70);
+  --wp-amber-ink: oklch(0.28 0.05 75);
+  --wp-pass: oklch(0.72 0.14 160);
 
-  --ifm-color-primary: var(--wp-primary);
-  --ifm-color-primary-dark: var(--wp-primary-strong);
-  --ifm-color-primary-darker: oklch(0.41 0.105 205);
-  --ifm-color-primary-darkest: oklch(0.35 0.1 205);
-  --ifm-color-primary-light: oklch(0.6 0.1 203);
-  --ifm-color-primary-lighter: oklch(0.66 0.095 201);
-  --ifm-color-primary-lightest: oklch(0.76 0.08 200);
-  --ifm-background-color: var(--wp-bg);
+  --wp-font-display: 'Clash Display', 'Archivo', system-ui, sans-serif;
+  --wp-font-body: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --wp-font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Consolas, monospace;
+
+  /* Infima mapping */
+  --ifm-color-primary: var(--wp-marine);
+  --ifm-color-primary-dark: oklch(0.47 0.09 207);
+  --ifm-color-primary-darker: oklch(0.44 0.085 208);
+  --ifm-color-primary-darkest: oklch(0.37 0.075 210);
+  --ifm-color-primary-light: oklch(0.58 0.09 204);
+  --ifm-color-primary-lighter: oklch(0.63 0.085 203);
+  --ifm-color-primary-lightest: oklch(0.72 0.075 202);
+  --ifm-background-color: var(--wp-paper);
   --ifm-font-color-base: var(--wp-ink);
-  --ifm-color-secondary: var(--wp-muted);
-  --ifm-link-color: var(--wp-primary);
-  --ifm-code-font-size: 0.875em;
-  --ifm-font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI',
-    sans-serif;
-  --ifm-font-family-monospace: 'JetBrains Mono', ui-monospace, 'Cascadia Code',
-    monospace;
-  --ifm-heading-font-weight: 650;
-  --ifm-toc-border-color: oklch(from var(--wp-ink) l c h / 10%);
-  --ifm-hr-border-color: oklch(from var(--wp-ink) l c h / 12%);
-  --docusaurus-highlighted-code-line-bg: oklch(0.52 0.105 205 / 8%);
-
-  --wp-border: oklch(from var(--wp-ink) l c h / 10%);
+  --ifm-font-family-base: var(--wp-font-body);
+  --ifm-font-family-monospace: var(--wp-font-mono);
+  --ifm-heading-font-family: var(--wp-font-display);
+  --ifm-heading-font-weight: 600;
+  --ifm-heading-line-height: 1.15;
+  --ifm-code-font-size: 92%;
+  --ifm-border-color: var(--wp-line);
+  --ifm-toc-border-color: var(--wp-line);
+  --ifm-navbar-height: 4.25rem;
+  --ifm-navbar-shadow: none;
+  --ifm-global-radius: 8px;
+  --ifm-button-border-radius: 8px;
+  --ifm-card-border-radius: 10px;
+  --ifm-pre-border-radius: 10px;
+  --ifm-code-border-radius: 6px;
+  --prism-background-color: var(--wp-panel);
+  --ifm-table-stripe-background: transparent;
 }
 
 [data-theme='dark'] {
-  --wp-bg: oklch(0.17 0 0);
-  --wp-surface: oklch(0.22 0 0);
-  --wp-ink: oklch(0.93 0.006 210);
-  --wp-primary: oklch(0.75 0.1 200);
-  --wp-primary-strong: oklch(0.82 0.09 200);
-  --wp-accent: oklch(0.78 0.14 75);
-  --wp-muted: oklch(0.68 0.01 220);
-
-  --ifm-color-primary: var(--wp-primary);
-  --ifm-color-primary-dark: oklch(0.68 0.105 201);
-  --ifm-color-primary-darker: oklch(0.61 0.105 202);
-  --ifm-color-primary-darkest: oklch(0.52 0.105 204);
-  --ifm-color-primary-light: oklch(0.81 0.09 199);
-  --ifm-color-primary-lighter: oklch(0.86 0.075 198);
-  --ifm-color-primary-lightest: oklch(0.92 0.05 196);
-  --ifm-background-color: var(--wp-bg);
-  --docusaurus-highlighted-code-line-bg: oklch(0.75 0.1 200 / 12%);
+  --wp-paper: oklch(0.17 0.015 250);
+  --wp-ink: oklch(0.93 0.01 240);
+  --wp-ink-2: oklch(0.74 0.015 245);
+  --wp-ink-3: oklch(0.6 0.012 245);
+  --wp-line: oklch(0.28 0.015 245);
+  --wp-line-strong: oklch(0.36 0.015 245);
+  --wp-marine: oklch(0.74 0.09 205);
+  --wp-marine-deep: oklch(0.8 0.08 203);
+  --wp-marine-soft: oklch(0.25 0.025 215);
+  --wp-panel: oklch(0.13 0.02 215);
+  --wp-panel-2: oklch(0.17 0.022 215);
+  --wp-panel-line: oklch(0.26 0.025 215);
+  --wp-panel-ink: oklch(0.94 0.015 210);
+  --wp-panel-ink-2: oklch(0.66 0.03 212);
+  --ifm-background-color: var(--wp-paper);
 }
 
-/* Wordmark — the navbar title is set in JetBrains Mono */
-.navbar__title {
-  font-family: var(--ifm-font-family-monospace);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  font-size: 1.15rem;
+/* ---------- Base typography ---------- */
+
+body {
+  font-family: var(--wp-font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'ss01';
 }
+
+h1, h2, h3, h4 {
+  font-family: var(--wp-font-display);
+  letter-spacing: -0.015em;
+}
+
+strong { font-weight: 600; }
+
+::selection {
+  background: oklch(0.52 0.095 205 / 0.22);
+}
+
+:focus-visible {
+  outline: 2px solid var(--wp-marine);
+  outline-offset: 2px;
+}
+
+/* ---------- Navbar ---------- */
 
 .navbar {
-  border-bottom: 1px solid var(--wp-border);
+  background: var(--wp-paper);
+  border-bottom: 1px solid var(--wp-line);
   box-shadow: none;
 }
 
+.navbar__brand { gap: 0.6rem; }
+
+.navbar__title {
+  font-family: var(--wp-font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+.navbar__link {
+  font-size: 0.925rem;
+  font-weight: 500;
+}
+
+/* ---------- Footer (instrument panel) ---------- */
+
+.footer {
+  background: var(--wp-panel);
+  border-top: 1px solid var(--wp-panel-line);
+}
+
 .footer--dark {
-  --ifm-footer-background-color: oklch(0.14 0 0);
+  --ifm-footer-background-color: var(--wp-panel);
+  --ifm-footer-color: var(--wp-panel-ink-2);
+  --ifm-footer-link-color: var(--wp-panel-ink-2);
+  --ifm-footer-title-color: var(--wp-panel-ink-2);
 }
 
-/* Quiet, 120ms hovers only — no scroll theatrics */
-a, .menu__link, .navbar__link {
-  transition: color 120ms ease, background-color 120ms ease,
-    border-color 120ms ease;
+.footer__title {
+  font-family: var(--wp-font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--wp-panel-ink-2);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    transition: none !important;
-    animation: none !important;
-  }
+.footer__link-item {
+  font-size: 0.925rem;
+  transition: color 120ms ease;
 }
 
-/* Skill type badges (used on skills reference pages) */
+.footer__link-item:hover { color: var(--wp-amber); }
+
+.footer__copyright {
+  font-family: var(--wp-font-mono);
+  font-size: 0.78rem;
+  color: var(--wp-panel-ink-2);
+}
+
+
+/* ---------- Buttons ---------- */
+
+.button {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-width: 1px;
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.button--primary {
+  background: var(--wp-amber);
+  border-color: var(--wp-amber);
+  color: var(--wp-amber-ink);
+}
+
+.button--primary:hover,
+.button--primary:active {
+  background: oklch(0.72 0.15 76);
+  border-color: oklch(0.72 0.15 76);
+  color: var(--wp-amber-ink);
+}
+
+.button--secondary {
+  background: transparent;
+  border-color: var(--wp-line-strong);
+  color: var(--wp-ink);
+}
+
+.button--secondary:hover {
+  border-color: var(--wp-marine);
+  color: var(--wp-marine);
+  background: transparent;
+}
+
+/* ---------- Code blocks (instrument panel, both themes) ---------- */
+
+.theme-code-block,
+.theme-code-block [class*='codeBlock'] {
+  background: var(--wp-panel);
+}
+
+.theme-code-block {
+  border: 1px solid var(--wp-panel-line);
+  box-shadow: none;
+}
+
+pre.prism-code {
+  border: 1px solid var(--wp-panel-line);
+}
+
+.theme-code-block [class*='button'] {
+  color: var(--wp-panel-ink-2);
+}
+
+/* Inline code */
+:not(pre) > code {
+  background: var(--wp-marine-soft);
+  color: var(--wp-marine-deep);
+  border: 1px solid var(--wp-line);
+  padding: 0.1em 0.35em;
+  font-weight: 500;
+}
+
+[data-theme='dark'] :not(pre) > code {
+  border-color: var(--wp-panel-line);
+}
+
+/* ---------- Admonitions (1px + left rule, no fills) ---------- */
+
+.theme-admonition,
+.alert {
+  background: transparent;
+  border: 1px solid var(--wp-line);
+  border-left: 3px solid var(--wp-marine);
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.alert--warning,
+.alert--caution,
+.theme-admonition-important {
+  border-left-color: var(--wp-amber);
+}
+
+.alert--danger {
+  border-left-color: var(--ifm-color-danger);
+}
+
+.admonition-heading h5,
+.alert__heading {
+  font-family: var(--wp-font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ---------- Tables (calibration rows) ---------- */
+
+table {
+  font-feature-settings: 'tnum';
+  font-size: 0.925rem;
+}
+
+thead th {
+  font-family: var(--wp-font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wp-ink-2);
+  border-bottom: 1px solid var(--wp-line-strong);
+}
+
+td, th { border-color: var(--wp-line); }
+
+/* ---------- Docs chrome ---------- */
+
+.menu__link {
+  font-size: 0.925rem;
+  border-radius: 6px;
+}
+
+.menu__link--active {
+  font-weight: 600;
+  background: var(--wp-marine-soft);
+}
+
+.menu__list-item-collapsible { border-radius: 6px; }
+
+.table-of-contents__link--active {
+  color: var(--wp-marine);
+  font-weight: 600;
+}
+
+.breadcrumbs__link { font-size: 0.85rem; }
+
+.pagination-nav {
+  border-top: 1px solid var(--wp-line);
+  padding-top: 1.5rem;
+}
+
+.pagination-nav__link {
+  border: 1px solid var(--wp-line);
+  border-radius: 10px;
+  transition: border-color 140ms ease;
+}
+
+.pagination-nav__link:hover { border-color: var(--wp-marine); }
+
+.pagination-nav__label { font-weight: 600; }
+
+.theme-doc-edit-this-page {
+  font-family: var(--wp-font-mono);
+  font-size: 0.75rem;
+}
+
+/* ---------- Blog ---------- */
+
+.blog-post-page article header h1 {
+  font-size: 2.4rem;
+}
+
+.blog-list-page h1 { letter-spacing: -0.02em; }
+
+article .markdown > p:first-of-type { font-size: 1.05rem; }
+
+
+/* ---------- Skill badges (docs) ---------- */
+
 .skill-badge {
   display: inline-block;
-  font-family: var(--ifm-font-family-monospace);
+  font-family: var(--wp-font-mono);
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  padding: 0.15em 0.6em;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.28em 0.75em;
   border-radius: 999px;
-  margin-bottom: 0.75rem;
-  border: 1px solid transparent;
+  border: 1px solid var(--wp-line-strong);
+  color: var(--wp-ink-2);
+  margin-bottom: 0.9rem;
 }
 
 .skill-badge--orchestrator {
-  background: var(--wp-primary);
-  color: oklch(1 0 0);
+  border-color: var(--wp-amber);
+  color: oklch(0.5 0.12 70);
+  background: oklch(0.78 0.15 78 / 0.09);
 }
 
 .skill-badge--process {
-  background: oklch(from var(--wp-primary) l c h / 12%);
-  color: var(--wp-primary);
-  border-color: oklch(from var(--wp-primary) l c h / 35%);
+  border-color: var(--wp-marine);
+  color: var(--wp-marine-deep);
+  background: oklch(0.52 0.095 205 / 0.07);
 }
 
-.skill-badge--tool {
-  background: var(--wp-accent);
-  color: oklch(1 0 0);
+[data-theme='dark'] .skill-badge--orchestrator { color: var(--wp-amber); }
+[data-theme='dark'] .skill-badge--process { color: var(--wp-marine); }
+
+/* ---------- Spec label (named brand system — see DESIGN.md) ---------- */
+
+.spec-label {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-family: var(--wp-font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--wp-ink-3);
 }
+
+.spec-label::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: var(--wp-line);
+}
+
+/* ---------- Misc ---------- */
+
+hr { border-color: var(--wp-line); }
+
+mark {
+  background: oklch(0.78 0.15 78 / 0.35);
+  color: inherit;
+}
+
+.main-wrapper { background: var(--wp-paper); }
